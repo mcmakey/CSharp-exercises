@@ -1,1 +1,1 @@
-# geekBrains_c-_homework
+Домашние задания курса "C# разработчик" GeekBrains
