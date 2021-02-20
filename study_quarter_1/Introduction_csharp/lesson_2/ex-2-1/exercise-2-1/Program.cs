@@ -10,7 +10,39 @@ namespace exercise_2_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            float enteredValue;
+            float minTemperature = 0;
+            float maxTemperature = 0;
+
+            Console.WriteLine("Введите минимальную температуру за сутки (дробная часть через запятую)");
+
+            if (float.TryParse(Console.ReadLine(), out enteredValue))
+            {
+                minTemperature = enteredValue;
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввод");
+                Environment.Exit(0);
+            }
+
+
+            Console.WriteLine("Введите максимальную температуру за сутки (дробная часть через запятую)");
+
+            if (float.TryParse(Console.ReadLine(), out enteredValue))
+            {
+                maxTemperature = enteredValue;
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввод");
+                Environment.Exit(0);
+            }
+
+
+            float avrTemperature = (minTemperature + maxTemperature) / 2;
+
+            Console.WriteLine($"Средняя температура за сутки - {avrTemperature}");
         }
     }
 }
