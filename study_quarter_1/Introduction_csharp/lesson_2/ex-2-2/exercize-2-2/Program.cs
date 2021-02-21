@@ -10,7 +10,7 @@ namespace exercize_2_2
 
         enum Months
         {
-            January,
+            January = 1,
             February,
             March,
             April,
@@ -28,10 +28,10 @@ namespace exercize_2_2
         {
             int getMonthNumber()
             {
+                const int MAX_VALUE = 12;
                 string value;
                 int number;
                 bool isNumber;
-                const int MAX_VALUE = 12;
 
                 while(true)
                 {
@@ -52,8 +52,9 @@ namespace exercize_2_2
             Console.WriteLine("Введите номер месяца");
 
             int monthNumber = getMonthNumber();
+            string monthName = Enum.GetName(typeof(Months), monthNumber);
 
-            Console.WriteLine(monthNumber);
+            Console.WriteLine($"Месяц с номером {monthNumber} это {monthName}");
         }
     }
 }
