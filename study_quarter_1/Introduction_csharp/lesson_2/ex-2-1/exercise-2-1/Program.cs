@@ -10,35 +10,31 @@ namespace exercise_2_1
     {
         static void Main(string[] args)
         {
-            float enteredValue;
             float minTemperature = 0;
             float maxTemperature = 0;
 
+            static float getTemperature()
+            {
+                float value;
+
+                while(true)
+                {
+                    if (float.TryParse(Console.ReadLine(), out value))
+                    {
+                        return value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Некорректный ввод, попробйте еще раз");
+                    }
+                }
+            }
+
             Console.WriteLine("Введите минимальную температуру за сутки (дробная часть через запятую)");
-
-            if (float.TryParse(Console.ReadLine(), out enteredValue))
-            {
-                minTemperature = enteredValue;
-            }
-            else
-            {
-                Console.WriteLine("Некорректный ввод");
-                Environment.Exit(0);
-            }
-
+            minTemperature = getTemperature();
 
             Console.WriteLine("Введите максимальную температуру за сутки (дробная часть через запятую)");
-
-            if (float.TryParse(Console.ReadLine(), out enteredValue))
-            {
-                maxTemperature = enteredValue;
-            }
-            else
-            {
-                Console.WriteLine("Некорректный ввод");
-                Environment.Exit(0);
-            }
-
+            maxTemperature = getTemperature();
 
             float avrTemperature = (minTemperature + maxTemperature) / 2;
 
