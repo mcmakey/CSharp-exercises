@@ -10,18 +10,18 @@ namespace exercize_2_2
 
         enum Months
         {
-            January = 1,
-            February,
-            March,
-            April,
-            May,
-            June,
-            July,
-            August,
-            September,
-            October,
-            November,
-            December
+            Январь = 1,
+            Февраль,
+            Март,
+            Апрель,
+            Май,
+            Июнь,
+            Июль,
+            Август,
+            Сентябрь,
+            Октябрь,
+            Ноябрь,
+            Декабрь
         }
 
         static void Main(string[] args)
@@ -29,6 +29,7 @@ namespace exercize_2_2
             int getMonthNumber()
             {
                 const int MAX_VALUE = 12;
+                const int MIN_VALUE = 1;
                 string value;
                 int number;
                 bool isNumber;
@@ -38,13 +39,13 @@ namespace exercize_2_2
                     value = Console.ReadLine();
                     isNumber = Int32.TryParse(value, out number);
 
-                    if (isNumber && number <= MAX_VALUE)
+                    if (isNumber && MIN_VALUE <= number && number <= MAX_VALUE)
                     {
                         return number;
                     } 
                     else
                     {
-                        Console.WriteLine("Неккоректный ввод, попрбуйте еще раз");
+                        Console.WriteLine("Неккоректный ввод, попробуйте еще раз");
                     };
                 }
             }
