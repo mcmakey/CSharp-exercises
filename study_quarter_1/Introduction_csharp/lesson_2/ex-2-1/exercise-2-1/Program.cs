@@ -10,12 +10,12 @@ namespace exercise_2_1
     {
         static void Main(string[] args)
         {
-            float minTemperature = 0;
-            float maxTemperature = 0;
+            float minTemperature = new float();
+            float maxTemperature = new float();
 
             static float getTemperature()
             {
-                float value;
+                float value = new float();
 
                 while(true)
                 {
