@@ -32,12 +32,12 @@ namespace exercize_2_5
 
             // Температура
 
-            float minTemperature = 0;
-            float maxTemperature = 0;
+            float minTemperature = new float();
+            float maxTemperature = new float();
 
             static float getTemperature()
             {
-                float value;
+                float value = new float();
 
                 while (true)
                 {
@@ -68,8 +68,8 @@ namespace exercize_2_5
             {
                
                 string value;
-                int number;
-                bool isNumber;
+                int number = new int();
+                bool isNumber = new bool();
 
                 while (true)
                 {
