@@ -10,7 +10,7 @@ namespace exercize_2_3
         static void Main(string[] args)
         {
 
-            int number;
+            int number = new int();
 
             Console.WriteLine("Введите чило");
 
