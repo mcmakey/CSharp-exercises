@@ -31,8 +31,8 @@ namespace exercize_2_2
                 const int MAX_VALUE = 12;
                 const int MIN_VALUE = 1;
                 string value;
-                int number;
-                bool isNumber;
+                int number = new int();
+                bool isNumber = new bool();
 
                 while(true)
                 {
