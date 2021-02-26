@@ -10,7 +10,14 @@ namespace Exercise_3_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Написать программу — телефонный справочник — создать двумерный массив 5*2");
+            string[,] phoneBook = new string[5, 2];
+            FillPhoneBook(phoneBook);
+        }
+
+        static void FillPhoneBook(string[,] phonebook)
+        {
+            int numberEntries = phonebook.GetUpperBound(0) + 1;
+            Console.WriteLine(numberEntries);
         }
     }
 }
