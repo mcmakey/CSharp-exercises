@@ -9,18 +9,46 @@ namespace Exercise_3_1
     {
         static void Main(string[] args)
         {
-            int[,] myMatrix = new int[4, 5] { 
-                { 1, 2, 3, 4, 5 },
-                { 6, 7, 8, 9, 10 },
-                { 11, 12, 13, 14, 15 },
-                { 16, 17, 18, 19, 20}
-            };
+            int matrixRows = GetParamMatrix("Введите количество строк матрицы");
+            int matrixColumns = GetParamMatrix("Введите количество столбцов матрицы");
+            var myMatrix = CreateMatrix(matrixRows, matrixColumns);
            
             ShowMatrix(myMatrix);
             ShowMembersMainDiagonal(GetMembersMainDiagonal(myMatrix));
         }
 
-        static void ShowMatrix(int[,] matrix)
+        static int GetParamMatrix(string message)
+        {
+            Console.WriteLine(message);
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int value))
+                {
+                    return value;
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробйте еще раз");
+                }
+            }
+        }
+ 
+        static string[,] CreateMatrix(int rows, int columns)
+        {
+            string[,] matrix = new string[rows, columns];
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    matrix[i, j] = $"{i}{j}";
+                }
+            }
+
+            return matrix;
+        }
+
+        static void ShowMatrix(string[,] matrix)
         {
             int rows = matrix.GetUpperBound(0) + 1;
             int columns = matrix.Length / rows;
@@ -37,7 +65,7 @@ namespace Exercise_3_1
             }
         }
 
-        static void ShowMembersMainDiagonal(int[] array)
+        static void ShowMembersMainDiagonal(string[] array)
         {
             Console.WriteLine($"Элементы данного двумерного массива по главной диагонали: ");
             for (int i = 0; i < array.Length; i++)
@@ -46,14 +74,14 @@ namespace Exercise_3_1
             }
         }
 
-        static int[] GetMembersMainDiagonal(int [,] matrix)
+        static string[] GetMembersMainDiagonal(string [,] matrix)
         {
             int rows = matrix.GetUpperBound(0) + 1;
             int columns = matrix.Length / rows;
 
             int numberMembers = rows > columns ? columns : rows;
 
-            int[] membersMainDiagonal = new int[numberMembers];
+            string[] membersMainDiagonal = new string[numberMembers];
 
             for (int i = 0; i < membersMainDiagonal.Length; i++)
             {
