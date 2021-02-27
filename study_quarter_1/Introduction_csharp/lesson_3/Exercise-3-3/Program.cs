@@ -9,7 +9,14 @@ namespace Exercise_3_3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Написать программу, выводящую введенную пользователем строку в обратном порядке (olleH вместо Hello).");
+            Console.WriteLine("Введите строку");
+            string text = Console.ReadLine();
+
+            char[] charactersText = text.ToCharArray();
+            Array.Reverse(charactersText);
+
+            Console.WriteLine(String.Join(null, charactersText));
+
         }
     }
 }
