@@ -8,11 +8,37 @@ namespace Exercise_3_4
 {
     class Program
     {
+        enum Ships
+        {
+            OneDeck = 1,
+            TwoDeck,
+            ThreeDeck,
+            FourDeck,
+        }
+
+        enum Direction
+        {
+            T, // top
+            R, // right
+            B, // bottom
+            L  // left
+        }
+
+        const string EMPTY_CELL = "O";
+        const string FILLED_CELL = "X";
+
         static void Main(string[] args)
         {
 
             // Инициализация игрового поля
             string[,] battleField = InitBattleField();
+
+            // Показать пустое игровое поле
+            ShowBattleField(battleField);
+
+            // Позиционирование корабля
+            Console.WriteLine("Позиционирование четырехпалубного корабля:");
+            PositioningShip(battleField, Ships.FourDeck);
 
             // Показать пустое игровое поле
             ShowBattleField(battleField);
@@ -28,7 +54,7 @@ namespace Exercise_3_4
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    matrix[i, j] = "O";
+                    matrix[i, j] = EMPTY_CELL;
                 }
             }
 
@@ -57,6 +83,83 @@ namespace Exercise_3_4
                     Console.Write(matrix[i, j].PadLeft(2));
                 }
                 Console.WriteLine();
+            }
+        }
+
+        static void PositioningShip(string[,] matrix, Ships ship)
+        {
+            int xStartingPoint = new int();
+            int yStartingPoint = new int();
+            int shipLength = (int)ship;
+            Direction direction;
+           
+            // Выбрать начальную точку
+            Console.WriteLine("Введите координаты начальной точки");
+            Console.WriteLine("X:");
+            xStartingPoint = GetCoordinate();
+            Console.WriteLine("Y:");
+            yStartingPoint = GetCoordinate();
+            // Проверка на то что хоябы одно направление возможно
+            // Выбрать направление
+            Console.WriteLine("Введите направление (T,R,B,L)");
+            direction = GetDirection();
+            // Проверить подходит ли данное направление
+            // Заполнить соответстующие ячейки "X"
+            Console.Write($"x={xStartingPoint}, y={yStartingPoint}, direction={direction} \n");
+            if (direction == Direction.T)
+            {
+                for (int i = 0; i < shipLength; i++)
+                {
+                    matrix[(xStartingPoint - 1) - i, (yStartingPoint - 1)] = FILLED_CELL;
+                }
+            } else if (direction == Direction.R)
+            {
+                for (int i = 0; i < shipLength; i++)
+                {
+                    matrix[xStartingPoint - 1, (yStartingPoint - 1) + i] = FILLED_CELL;
+                }
+            } else if (direction == Direction.B)
+            {
+                for (int i = 0; i < shipLength; i++)
+                {
+                    matrix[(xStartingPoint - 1) + i, yStartingPoint - 1] = FILLED_CELL;
+                }
+            } else if (direction == Direction.L)
+            {
+                for (int i = 0; i < shipLength; i++)
+                {
+                    matrix[xStartingPoint - 1, (yStartingPoint - 1) - i] = FILLED_CELL;
+                }
+            }
+        }
+
+        static int GetCoordinate()
+        {
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int value))
+                {
+                    return value;
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробйте еще раз");
+                }
+            }
+        }
+
+        static Direction GetDirection()
+        {
+            while (true)
+            {
+                if (Direction.TryParse(Console.ReadLine(), out Direction value))
+                {
+                    return value;
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробйте еще раз");
+                }
             }
         }
 
