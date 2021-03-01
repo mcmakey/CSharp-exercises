@@ -27,18 +27,86 @@ namespace Exercise_3_4
             string[][][] fourDeckCollection = new string[1][][];
             fourDeckCollection[0] = fourDeck_1;
 
+            // Трехпалубные корабли
+            // Первый трехпалубный корабль
+            string[][] threeDeck_1 = new string[3][];
+            threeDeck_1[0] = new string[2] { "B", "6" };
+            threeDeck_1[1] = new string[2] { "B", "7" };
+            threeDeck_1[2] = new string[2] { "B", "8" };
+            // Второй трехпалубный корабль
+            string[][] threeDeck_2 = new string[3][];
+            threeDeck_2[0] = new string[2] { "G", "2" };
+            threeDeck_2[1] = new string[2] { "H", "2" };
+            threeDeck_2[2] = new string[2] { "I", "2" };
+            // Группа трехпалубных кораблей (2)
+            string[][][] threeDeckCollection = new string[2][][];
+            threeDeckCollection[0] = threeDeck_1;
+            threeDeckCollection[1] = threeDeck_2;
+
+            // Двухпалубные корабли
+            // Первый Двухпалубный корабль
+            //string[][] twoDeck_1 = new string[2][];
+            //twoDeck_1[0] = new string[2] { "B", "2" };
+            //twoDeck_1[1] = new string[2] { "C", "2" };
+            // Второй Двухпалубный корабль
+            //string[][] twoDeck_2 = new string[2][];
+            //twoDeck_2[0] = new string[2] { "G", "6" };
+            //twoDeck_2[1] = new string[2] { "G", "7" };
+            // Третий Двухпалубный корабль
+            //string[][] twoDeck_3 = new string[2][];
+            //twoDeck_3[0] = new string[2] { "I", "10" };
+            //twoDeck_3[1] = new string[2] { "J", "10" };
+            // Группа двухпалубных кораблей (4)
+            //string[][][] twoDeckCollection = new string[3][][];
+            //twoDeckCollection[0] = twoDeck_1;
+            //twoDeckCollection[1] = twoDeck_2;
+            //twoDeckCollection[2] = twoDeck_3;
+
+            // Однопалубные корабли
+            // Первый однопалубный корабль
+            //string[][] oneDeck_1 = new string[2][];
+            //oneDeck_1[0] = new string[2] { "A", "4" };
+            // Второй однопалубный корабль
+            //string[][] oneDeck_2 = new string[2][];
+            //oneDeck_2[0] = new string[2] { "D", "7" };
+            // Третий однопалубный корабль
+            //string[][] oneDeck_3 = new string[2][];
+            //oneDeck_3[0] = new string[2] { "E", "10" };
+            // Четвертый однопалубный корабль
+            //string[][] oneDeck_4 = new string[2][];
+            //oneDeck_4[0] = new string[2] { "J", "4" };
+            // Группа однопалубных кораблей (3)
+            //string[][][] oneDeckCollection = new string[4][][];
+            //oneDeckCollection[0] = oneDeck_1;
+            //oneDeckCollection[1] = oneDeck_2;
+            //oneDeckCollection[2] = oneDeck_3;
+            //oneDeckCollection[2] = oneDeck_4;
+
             // Инициализация игрового поля
             string[,] battleField = InitBattleField();
 
             // Показать пустое игровое поле
             ShowBattleField(battleField);
 
-            // Позиционирование корабля
+            // Позиционирование 4-х палубного корабля (1)
             Console.WriteLine("Позиционирование четырехпалубного корабля:");
             PositioningShip(battleField, fourDeckCollection);
-
-            // Показать игровое поле
             ShowBattleField(battleField);
+
+            // Позиционирование 3-х палубных кораблей 
+            Console.WriteLine("Позиционирование 3-х палубных кораблей:");
+            PositioningShip(battleField, threeDeckCollection);
+            ShowBattleField(battleField);
+
+            // Позиционирование 2-х палубных кораблей 
+            //Console.WriteLine("Позиционирование 2-х палубных кораблей:");
+            //PositioningShip(battleField, twoDeckCollection);
+            //ShowBattleField(battleField);
+
+            // Позиционирование 1-х палубных кораблей 
+            //Console.WriteLine("Позиционирование 1-х палубных кораблей:");
+            //PositioningShip(battleField, oneDeckCollection);
+            //ShowBattleField(battleField);
 
         }
 
@@ -96,11 +164,11 @@ namespace Exercise_3_4
                     var xCoord = shipCollections[i][j][0];
                     var yCoord = shipCollections[i][j][1];
 
-                    int xCoordMatrix = new int();
-                    int yCoordMatrix = new int();
+                    int column = new int();
+                    int row = new int();
 
                     if (Enum.TryParse(xCoord, out XCoordinates xValue)) {
-                        xCoordMatrix = (int)xValue - 1;
+                        column = (int)xValue - 1;
                     } else
                     {
                         Console.WriteLine($"Задан неверный формат координат для {deckNumber}-х палубных кораблей (корабль {i}, координата {j})");
@@ -108,14 +176,14 @@ namespace Exercise_3_4
 
                     if (Int32.TryParse(yCoord, out int yValue))
                     {
-                        yCoordMatrix = yValue - 1;
+                        row = yValue - 1;
                     }
                     else
                     {
                         Console.WriteLine($"Задан неверный формат координат для {deckNumber}-х палубных кораблей (корабль {i}, координата {j})");
                     };
 
-                    matrix[xCoordMatrix, yCoordMatrix] = FILLED_CELL;
+                    matrix[row, column] = FILLED_CELL;
                 }
             }
 
