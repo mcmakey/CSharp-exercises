@@ -45,22 +45,22 @@ namespace Exercise_3_4
 
             // Двухпалубные корабли
             // Первый Двухпалубный корабль
-            //string[][] twoDeck_1 = new string[2][];
-            //twoDeck_1[0] = new string[2] { "B", "2" };
-            //twoDeck_1[1] = new string[2] { "C", "2" };
+            string[][] twoDeck_1 = new string[2][];
+            twoDeck_1[0] = new string[2] { "B", "2" };
+            twoDeck_1[1] = new string[2] { "C", "2" };
             // Второй Двухпалубный корабль
-            //string[][] twoDeck_2 = new string[2][];
-            //twoDeck_2[0] = new string[2] { "G", "6" };
-            //twoDeck_2[1] = new string[2] { "G", "7" };
+            string[][] twoDeck_2 = new string[2][];
+            twoDeck_2[0] = new string[2] { "G", "6" };
+            twoDeck_2[1] = new string[2] { "G", "7" };
             // Третий Двухпалубный корабль
-            //string[][] twoDeck_3 = new string[2][];
-            //twoDeck_3[0] = new string[2] { "I", "10" };
-            //twoDeck_3[1] = new string[2] { "J", "10" };
-            // Группа двухпалубных кораблей (4)
-            //string[][][] twoDeckCollection = new string[3][][];
-            //twoDeckCollection[0] = twoDeck_1;
-            //twoDeckCollection[1] = twoDeck_2;
-            //twoDeckCollection[2] = twoDeck_3;
+            string[][] twoDeck_3 = new string[2][];
+            twoDeck_3[0] = new string[2] { "I", "10" };
+            twoDeck_3[1] = new string[2] { "J", "10" };
+            // Группа двухпалубных кораблей (3)
+            string[][][] twoDeckCollection = new string[3][][];
+            twoDeckCollection[0] = twoDeck_1;
+            twoDeckCollection[1] = twoDeck_2;
+            twoDeckCollection[2] = twoDeck_3;
 
             // Однопалубные корабли
             // Первый однопалубный корабль
@@ -99,9 +99,9 @@ namespace Exercise_3_4
             ShowBattleField(battleField);
 
             // Позиционирование 2-х палубных кораблей 
-            //Console.WriteLine("Позиционирование 2-х палубных кораблей:");
-            //PositioningShip(battleField, twoDeckCollection);
-            //ShowBattleField(battleField);
+            Console.WriteLine("Позиционирование 2-х палубных кораблей:");
+            PositioningShip(battleField, twoDeckCollection);
+            ShowBattleField(battleField);
 
             // Позиционирование 1-х палубных кораблей 
             //Console.WriteLine("Позиционирование 1-х палубных кораблей:");
