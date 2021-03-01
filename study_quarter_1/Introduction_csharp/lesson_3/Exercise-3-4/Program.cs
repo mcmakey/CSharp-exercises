@@ -8,27 +8,24 @@ namespace Exercise_3_4
 {
     class Program
     {
-        enum Ships
-        {
-            OneDeck = 1,
-            TwoDeck,
-            ThreeDeck,
-            FourDeck,
-        }
 
-        enum Direction
-        {
-            T, // top
-            R, // right
-            B, // bottom
-            L  // left
-        }
+        enum XCoordinates { A = 1, B, C, D, E, F, G, H, I, J}
 
         const string EMPTY_CELL = "O";
         const string FILLED_CELL = "X";
 
         static void Main(string[] args)
         {
+            // Четырехпалубный корабль
+            string[][] fourDeck_1 = new string[4][];
+            fourDeck_1[0] = new string[2] { "D", "4"};
+            fourDeck_1[1] = new string[2] { "E", "4"};
+            fourDeck_1[2] = new string[2] { "F", "4"};
+            fourDeck_1[3] = new string[2] { "G", "4"};
+
+            // Группа четырехпалубных кораблей (1)
+            string[][][] fourDeckCollection = new string[1][][];
+            fourDeckCollection[0] = fourDeck_1;
 
             // Инициализация игрового поля
             string[,] battleField = InitBattleField();
@@ -38,10 +35,11 @@ namespace Exercise_3_4
 
             // Позиционирование корабля
             Console.WriteLine("Позиционирование четырехпалубного корабля:");
-            PositioningShip(battleField, Ships.FourDeck);
+            PositioningShip(battleField, fourDeckCollection);
 
-            // Показать пустое игровое поле
+            // Показать игровое поле
             ShowBattleField(battleField);
+
         }
 
         static string[,] InitBattleField()
@@ -86,82 +84,41 @@ namespace Exercise_3_4
             }
         }
 
-        static void PositioningShip(string[,] matrix, Ships ship)
+        static void PositioningShip(string[,] matrix, string[][][] shipCollections)
         {
-            int xStartingPoint = new int();
-            int yStartingPoint = new int();
-            int shipLength = (int)ship;
-            Direction direction;
-           
-            // Выбрать начальную точку
-            Console.WriteLine("Введите координаты начальной точки");
-            Console.WriteLine("X:");
-            xStartingPoint = GetCoordinate();
-            Console.WriteLine("Y:");
-            yStartingPoint = GetCoordinate();
-            // Проверка на то что хоябы одно направление возможно
-            // Выбрать направление
-            Console.WriteLine("Введите направление (T,R,B,L)");
-            direction = GetDirection();
-            // Проверить подходит ли данное направление
-            // Заполнить соответстующие ячейки "X"
-            Console.Write($"x={xStartingPoint}, y={yStartingPoint}, direction={direction} \n");
-            if (direction == Direction.T)
+            int shipNumber = shipCollections.Length;
+            int deckNumber = shipCollections[0].Length;
+
+            for (int i = 0; i < shipNumber; i++)
             {
-                for (int i = 0; i < shipLength; i++)
+                for (int j = 0; j < deckNumber; j++)
                 {
-                    matrix[(xStartingPoint - 1) - i, (yStartingPoint - 1)] = FILLED_CELL;
-                }
-            } else if (direction == Direction.R)
-            {
-                for (int i = 0; i < shipLength; i++)
-                {
-                    matrix[xStartingPoint - 1, (yStartingPoint - 1) + i] = FILLED_CELL;
-                }
-            } else if (direction == Direction.B)
-            {
-                for (int i = 0; i < shipLength; i++)
-                {
-                    matrix[(xStartingPoint - 1) + i, yStartingPoint - 1] = FILLED_CELL;
-                }
-            } else if (direction == Direction.L)
-            {
-                for (int i = 0; i < shipLength; i++)
-                {
-                    matrix[xStartingPoint - 1, (yStartingPoint - 1) - i] = FILLED_CELL;
+                    var xCoord = shipCollections[i][j][0];
+                    var yCoord = shipCollections[i][j][1];
+
+                    int xCoordMatrix = new int();
+                    int yCoordMatrix = new int();
+
+                    if (Enum.TryParse(xCoord, out XCoordinates xValue)) {
+                        xCoordMatrix = (int)xValue - 1;
+                    } else
+                    {
+                        Console.WriteLine($"Задан неверный формат координат для {deckNumber}-х палубных кораблей (корабль {i}, координата {j})");
+                    };
+
+                    if (Int32.TryParse(yCoord, out int yValue))
+                    {
+                        yCoordMatrix = yValue - 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Задан неверный формат координат для {deckNumber}-х палубных кораблей (корабль {i}, координата {j})");
+                    };
+
+                    matrix[xCoordMatrix, yCoordMatrix] = FILLED_CELL;
                 }
             }
-        }
 
-        static int GetCoordinate()
-        {
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out int value))
-                {
-                    return value;
-                }
-                else
-                {
-                    Console.WriteLine("Некорректный ввод, попробйте еще раз");
-                }
-            }
         }
-
-        static Direction GetDirection()
-        {
-            while (true)
-            {
-                if (Direction.TryParse(Console.ReadLine(), out Direction value))
-                {
-                    return value;
-                }
-                else
-                {
-                    Console.WriteLine("Некорректный ввод, попробйте еще раз");
-                }
-            }
-        }
-
     }
 }
