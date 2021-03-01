@@ -107,7 +107,6 @@ namespace Exercise_3_4
             Console.WriteLine("Позиционирование 1-х палубных кораблей:");
             PositioningShip(battleField, oneDeckCollection);
             ShowBattleField(battleField);
-
         }
 
         static string[,] InitBattleField()
@@ -129,14 +128,12 @@ namespace Exercise_3_4
 
         static void ShowBattleField(string[,] matrix)
         {
-            string[] xСoordinateNames = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
-
             int rows = matrix.GetUpperBound(0) + 1;
             int columns = matrix.Length / rows;
 
-            for (int i = 0; i < xСoordinateNames.Length; i++)
+            for (int i = 1; i <= columns; i++)
             {
-                Console.Write(xСoordinateNames[i].PadLeft(i == 0 ? 4 : 2));
+                Console.Write(Enum.GetName(typeof(XCoordinates), i).PadLeft(i == 1 ? 4 : 2));
             }
 
             Console.WriteLine();
