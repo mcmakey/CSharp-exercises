@@ -28,7 +28,7 @@ namespace Exercise_4_3
             Console.WriteLine("Введите номер месяца");
             int numberMonth = EnteredNumberMonth();
             string season = GetSeason(numberMonth);
-
+            Console.WriteLine(GetSeasonName(season));
         }
 
         static int EnteredNumberMonth()
@@ -60,7 +60,7 @@ namespace Exercise_4_3
 
         static string GetSeasonName(string season)
         {
-            string seasonName;
+            string seasonName = "";
 
             if (Enum.TryParse(season, out Seasons value))
             {
@@ -78,11 +78,14 @@ namespace Exercise_4_3
                     case Seasons.Autumn:
                         seasonName = "Осень";
                         break;
+                    default:
+                        Console.WriteLine("Какая-то ошибка");
+                        break;
                 }
             }
             else
             {
-                Console.WriteLine("Ошибка");
+                Console.WriteLine($"Ошибка нет такого сезона {season}");
             }
 
             return seasonName; 
