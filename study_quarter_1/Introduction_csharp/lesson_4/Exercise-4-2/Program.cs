@@ -12,7 +12,8 @@ namespace Exercise_4_2
         static void Main(string[] args)
         {
             string stringData = GetData();
-            Console.WriteLine(stringData);
+            Console.WriteLine($"Сумма чисел в строке {stringData}");
+            Console.WriteLine($"равна: {GetSumm(stringData)}");
         }
 
         static string GetData()
@@ -33,7 +34,20 @@ namespace Exercise_4_2
                     Console.WriteLine("Попробуйте еще раз");
                 }
             }
-            
+        }
+
+        static int GetSumm(string data)
+        {
+            string pattern = "[ ]+";
+            string[] numbers = Regex.Split(data, pattern);
+            int summ = new int();
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                summ += Convert.ToInt32(numbers[i]);
+            }
+
+            return summ;
         }
     }
 }
