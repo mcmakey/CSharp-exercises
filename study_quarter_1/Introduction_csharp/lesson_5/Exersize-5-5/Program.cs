@@ -22,26 +22,53 @@ namespace Exersize_5_5
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Список задач(ToDo-list)"); // 
-
-
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string file = @"..\..\..\data\todos.json";
             string path =  Path.Combine(baseDir, file);
 
             Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
 
-            showTodoList(todos);
-
+            ShowTodoList(todos);
+            EditTodoList(todos);
         }
 
-        static void showTodoList(Todo[] todos)
+        static void ShowTodoList(Todo[] todos)
         {
+            Console.WriteLine("Список задач:");
             for (int i = 0; i < todos.Length; i++)
             {
-                string completeIcon = todos[i].IsDone ? "X" : "";
+                string completeIcon = todos[i].IsDone ? "X" : " ";
                 Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
             }
+        }
+
+        static void EditTodoList(Todo[] todos)
+        {
+            Console.WriteLine("Введите номер задачи, чтобы изменить ее состояние (чтобы закончить редактирование нажмите 0)");
+
+            const string endNumber = "0";
+
+            while (true)
+            {
+                string enteredNumber = Console.ReadLine();
+
+                if (enteredNumber == endNumber)
+                {
+                    return;
+                };
+
+                if (Int32.TryParse(enteredNumber, out int number)) {
+                    int selectedTodoIndex = --number;
+
+                    todos[selectedTodoIndex].IsDone = !todos[selectedTodoIndex].IsDone;
+                    ShowTodoList(todos);
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
+                }
+            }
+
         }
     }
 }
