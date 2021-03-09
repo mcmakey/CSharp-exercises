@@ -40,6 +40,7 @@ namespace Exersize_5_5
                 string completeIcon = todos[i].IsDone ? "X" : " ";
                 Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
             }
+            Console.WriteLine();
         }
 
         static void EditTodoList(Todo[] todos)
@@ -57,10 +58,10 @@ namespace Exersize_5_5
                     return;
                 };
 
-                if (Int32.TryParse(enteredNumber, out int number)) {
+                if (Int32.TryParse(enteredNumber, out int number) && (0 < number  && number  <= todos.Length)) {
                     int selectedTodoIndex = --number;
 
-                    todos[selectedTodoIndex].IsDone = !todos[selectedTodoIndex].IsDone;
+                    todos[selectedTodoIndex].Toggle();
                     ShowTodoList(todos);
                 }
                 else

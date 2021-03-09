@@ -19,6 +19,9 @@ namespace Exersize_5_5
             IsDone = isDone;
         }
 
-        
+        public void Toggle()
+        {
+            IsDone = !IsDone;
+        }
     }
 }
