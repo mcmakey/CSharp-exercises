@@ -63,7 +63,7 @@ namespace Exercise_5_3
 
         static bool CheckToByte(string value)
         {
-            return 0 <=  Convert.ToInt32(value) && Convert.ToInt32(value) <= 255;
+            return byte.TryParse(value, out byte result);
         }
     }
 }
