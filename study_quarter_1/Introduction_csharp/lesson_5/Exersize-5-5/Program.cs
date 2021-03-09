@@ -12,6 +12,8 @@
 
 
 using System;
+using System.Text.Json;
+using System.IO;
 
 namespace Exersize_5_5
 {
@@ -19,7 +21,27 @@ namespace Exersize_5_5
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Список задач(ToDo-list)");
+
+            Console.WriteLine("Список задач(ToDo-list)"); // 
+
+
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string file = @"..\..\..\data\todos.json";
+            string path =  Path.Combine(baseDir, file);
+
+            Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
+
+            showTodoList(todos);
+
+        }
+
+        static void showTodoList(Todo[] todos)
+        {
+            for (int i = 0; i < todos.Length; i++)
+            {
+                string completeIcon = todos[i].IsDone ? "X" : "";
+                Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
+            }
         }
     }
 }
