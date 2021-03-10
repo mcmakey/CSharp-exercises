@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Exersize_5_5
 {
@@ -21,6 +22,19 @@ namespace Exersize_5_5
                 string completeIcon = Todos[i].IsDone ? "X" : " ";
                 Console.WriteLine($"{i + 1}. {completeIcon} {Todos[i].Title}");
             }
+            Console.WriteLine();
+        }
+
+        public void Add()
+        {
+            Console.WriteLine("Введите наименование новой задачи:");
+            string title = Console.ReadLine();
+            Todo newTodo = new Todo()
+            {
+                Title = title,
+                IsDone = false
+            };
+            Todos = Todos.Concat(new Todo[] { newTodo }).ToArray();
             Console.WriteLine();
         }
     }

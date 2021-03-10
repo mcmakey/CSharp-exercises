@@ -57,7 +57,7 @@ namespace Exersize_5_5
                     switch (actionValue)
                     {
                         case (int)Actions.Add:
-                            AddTodo(ref todos);
+                            todoList.Add();
                             break;
                         case (int)Actions.Remove:
                             RemoveTodo(ref todos);
@@ -88,20 +88,6 @@ namespace Exersize_5_5
                 Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
             }
             Console.WriteLine();
-        }
-
-        static void AddTodo(ref Todo[] todos)
-        {
-            Console.WriteLine("Введите наименование новой задачи:");
-            string title = Console.ReadLine();
-            Todo newTodo = new Todo()
-            {
-                Title = title,
-                IsDone = false
-            };
-            todos = todos.Concat(new Todo[] { newTodo }).ToArray();
-            Console.WriteLine();
-            ShowTodoList(todos);
         }
 
         static void RemoveTodo(ref Todo[] todos)
