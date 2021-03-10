@@ -40,12 +40,15 @@ namespace Exersize_5_5
 
         public void Remove()
         {
-            Console.WriteLine("Введите номер удаляемой задачи (для завершения введите 0):");
+            
 
             const string endNumber = "0";
 
             while (true)
             {
+                Console.WriteLine();
+                this.Show();
+                Console.WriteLine("Введите номер удаляемой задачи (для выхода в меню - введите 0):");
                 string enteredNumber = Console.ReadLine();
 
                 if (enteredNumber == endNumber)
@@ -60,7 +63,36 @@ namespace Exersize_5_5
                     var list = Todos.ToList();
                     list.RemoveAt(selectedTodoIndex);
                     Todos = list.ToArray();
-                    this.Show();
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
+                }
+            }
+        }
+
+        public void ToggleTodo()
+        {
+            const string endNumber = "0";
+
+            while (true)
+            {
+                Console.WriteLine();
+                this.Show();
+                Console.WriteLine("Введите номер задачи, чтобы изменить ее состояние (для выхода в меню - введите 0)");
+                string enteredNumber = Console.ReadLine();
+
+                if (enteredNumber == endNumber)
+                {
+                    return;
+                };
+
+                if (Int32.TryParse(enteredNumber, out int number) && (0 < number && number <= Todos.Length))
+                {
+                    int selectedTodoIndex = --number;
+
+                    Todos[selectedTodoIndex].Toggle();
                 }
                 else
                 {

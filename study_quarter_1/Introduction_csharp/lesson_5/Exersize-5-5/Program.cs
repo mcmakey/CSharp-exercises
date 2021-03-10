@@ -26,7 +26,7 @@ namespace Exersize_5_5
             Quit,
             Add,
             Remove,
-            Toggle
+            ToggleTodo
         }
         static void Main(string[] args)
         {
@@ -50,6 +50,7 @@ namespace Exersize_5_5
                 Console.WriteLine("2 - Удалить задачу");
                 Console.WriteLine("3 - Изменить статус задачи");
                 Console.WriteLine("0 - Закрыть приложение");
+                Console.WriteLine();
 
                 string action = Console.ReadLine();
 
@@ -63,8 +64,8 @@ namespace Exersize_5_5
                         case (int)Actions.Remove:
                             todoList.Remove();
                             break;
-                        case (int)Actions.Toggle:
-                            EditTodoStatus(todos);
+                        case (int)Actions.ToggleTodo:
+                            todoList.ToggleTodo();
                             break;
                         case 0:
                             return;
@@ -78,46 +79,6 @@ namespace Exersize_5_5
                     Console.WriteLine("Некорректный ввод, попробуйте еще раз");
                 };
             };
-        }
-
-        static void ShowTodoList(Todo[] todos)
-        {
-            Console.WriteLine("Список задач:");
-            for (int i = 0; i < todos.Length; i++)
-            {
-                string completeIcon = todos[i].IsDone ? "X" : " ";
-                Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
-            }
-            Console.WriteLine();
-        }
-
-        static void EditTodoStatus(Todo[] todos)
-        {
-            Console.WriteLine("Введите номер задачи, чтобы изменить ее состояние (чтобы закончить редактирование нажмите 0)");
-
-            const string endNumber = "0";
-
-            while (true)
-            {
-                string enteredNumber = Console.ReadLine();
-
-                if (enteredNumber == endNumber)
-                {
-                    return;
-                };
-
-                if (Int32.TryParse(enteredNumber, out int number) && (0 < number  && number  <= todos.Length)) {
-                    int selectedTodoIndex = --number;
-
-                    todos[selectedTodoIndex].Toggle();
-                    ShowTodoList(todos);
-                }
-                else
-                {
-                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
-                }
-            }
-
         }
     }
 }
