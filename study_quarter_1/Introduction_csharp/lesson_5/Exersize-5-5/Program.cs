@@ -14,7 +14,6 @@
 using System;
 using System.Text.Json;
 using System.IO;
-using System.Linq;
 
 namespace Exersize_5_5
 {
