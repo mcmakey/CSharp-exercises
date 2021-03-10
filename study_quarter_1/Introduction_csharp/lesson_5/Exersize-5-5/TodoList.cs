@@ -37,5 +37,36 @@ namespace Exersize_5_5
             Todos = Todos.Concat(new Todo[] { newTodo }).ToArray();
             Console.WriteLine();
         }
+
+        public void Remove()
+        {
+            Console.WriteLine("Введите номер удаляемой задачи (для завершения введите 0):");
+
+            const string endNumber = "0";
+
+            while (true)
+            {
+                string enteredNumber = Console.ReadLine();
+
+                if (enteredNumber == endNumber)
+                {
+                    return;
+                };
+
+                if (Int32.TryParse(enteredNumber, out int number) && (0 < number && number <= Todos.Length))
+                {
+                    int selectedTodoIndex = --number;
+
+                    var list = Todos.ToList();
+                    list.RemoveAt(selectedTodoIndex);
+                    Todos = list.ToArray();
+                    this.Show();
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
+                }
+            }
+        }
     }
 }

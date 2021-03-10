@@ -41,9 +41,10 @@ namespace Exersize_5_5
 
             while (true)
             {
-                // ShowTodoList(todos);
+                Console.WriteLine();
                 todoList.Show();
                 Console.WriteLine();
+
                 Console.WriteLine("Выберете действие:");
                 Console.WriteLine("1 - Добавить новую задачу");
                 Console.WriteLine("2 - Удалить задачу");
@@ -60,7 +61,7 @@ namespace Exersize_5_5
                             todoList.Add();
                             break;
                         case (int)Actions.Remove:
-                            RemoveTodo(ref todos);
+                            todoList.Remove();
                             break;
                         case (int)Actions.Toggle:
                             EditTodoStatus(todos);
@@ -88,38 +89,6 @@ namespace Exersize_5_5
                 Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
             }
             Console.WriteLine();
-        }
-
-        static void RemoveTodo(ref Todo[] todos)
-        {
-            Console.WriteLine("Введите номер удаляемой задачи (для завершения введите 0):");
-
-            const string endNumber = "0";
-
-            while (true)
-            {
-                string enteredNumber = Console.ReadLine();
-
-                if (enteredNumber == endNumber)
-                {
-                    return;
-                };
-
-                if (Int32.TryParse(enteredNumber, out int number) && (0 < number && number <= todos.Length))
-                {
-                    int selectedTodoIndex = --number;
-
-                    var list = todos.ToList();
-                    list.RemoveAt(selectedTodoIndex);
-                    todos = list.ToArray();
-
-                    ShowTodoList(todos);
-                }
-                else
-                {
-                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
-                }
-            }
         }
 
         static void EditTodoStatus(Todo[] todos)
