@@ -37,9 +37,12 @@ namespace Exersize_5_5
 
             Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
 
+            TodoList todoList = new TodoList(todos);
+
             while (true)
             {
-                ShowTodoList(todos);
+                // ShowTodoList(todos);
+                todoList.Show();
                 Console.WriteLine();
                 Console.WriteLine("Выберете действие:");
                 Console.WriteLine("1 - Добавить новую задачу");
