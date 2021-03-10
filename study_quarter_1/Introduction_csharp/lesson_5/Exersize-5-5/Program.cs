@@ -30,14 +30,7 @@ namespace Exersize_5_5
         }
         static void Main(string[] args)
         {
-
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string file = @"..\..\..\data\todos.json";
-            string path =  Path.Combine(baseDir, file);
-
-            Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
-
-            TodoList todoList = new TodoList(todos);
+            TodoList todoList = getTodoList();
 
             while (true)
             {
@@ -68,6 +61,7 @@ namespace Exersize_5_5
                             todoList.ToggleTodo();
                             break;
                         case 0:
+                            SaveChanges(todoList.Todos);
                             return;
                         default:
                             Console.WriteLine("Нет такого действия");
@@ -79,6 +73,27 @@ namespace Exersize_5_5
                     Console.WriteLine("Некорректный ввод, попробуйте еще раз");
                 };
             };
+        }
+
+        static string GetPath()
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string file = @"..\..\..\data\todos.json";
+            return Path.Combine(baseDir, file);
+        }
+
+        static TodoList getTodoList()
+        {
+            string path = GetPath();
+            Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
+            return new TodoList(todos);
+        }
+
+        static void SaveChanges(Todo[] todos)
+        {
+            string path = GetPath();
+            string todosJson = JsonSerializer.Serialize(todos);
+            File.WriteAllText(path, todosJson);
         }
     }
 }
