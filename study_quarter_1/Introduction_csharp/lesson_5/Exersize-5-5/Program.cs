@@ -29,7 +29,7 @@ namespace Exersize_5_5
             Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
 
             ShowTodoList(todos);
-            EditTodoList(todos);
+            EditTodoStatus(todos);
         }
 
         static void ShowTodoList(Todo[] todos)
@@ -43,7 +43,7 @@ namespace Exersize_5_5
             Console.WriteLine();
         }
 
-        static void EditTodoList(Todo[] todos)
+        static void EditTodoStatus(Todo[] todos)
         {
             Console.WriteLine("Введите номер задачи, чтобы изменить ее состояние (чтобы закончить редактирование нажмите 0)");
 
