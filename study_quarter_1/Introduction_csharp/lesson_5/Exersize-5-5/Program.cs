@@ -14,6 +14,7 @@
 using System;
 using System.Text.Json;
 using System.IO;
+using System.Linq;
 
 namespace Exersize_5_5
 {
@@ -30,6 +31,8 @@ namespace Exersize_5_5
 
             ShowTodoList(todos);
             EditTodoStatus(todos);
+            AddTodo(ref todos);
+            RemoveTodo(ref todos);
         }
 
         static void ShowTodoList(Todo[] todos)
@@ -41,6 +44,52 @@ namespace Exersize_5_5
                 Console.WriteLine($"{i + 1}. {completeIcon} {todos[i].Title}");
             }
             Console.WriteLine();
+        }
+
+        static void AddTodo(ref Todo[] todos)
+        {
+            Console.WriteLine("Введите наименование новой задачи:");
+            string title = Console.ReadLine();
+            Todo newTodo = new Todo()
+            {
+                Title = title,
+                IsDone = false
+            };
+            todos = todos.Concat(new Todo[] { newTodo }).ToArray();
+            Console.WriteLine();
+            ShowTodoList(todos);
+        }
+
+        static void RemoveTodo(ref Todo[] todos)
+        {
+            Console.WriteLine("Введите номер удаляемой задачи (для завершения введите 0):");
+
+            const string endNumber = "0";
+
+            while (true)
+            {
+                string enteredNumber = Console.ReadLine();
+
+                if (enteredNumber == endNumber)
+                {
+                    return;
+                };
+
+                if (Int32.TryParse(enteredNumber, out int number) && (0 < number && number <= todos.Length))
+                {
+                    int selectedTodoIndex = --number;
+
+                    var list = todos.ToList();
+                    list.RemoveAt(selectedTodoIndex);
+                    todos = list.ToArray();
+
+                    ShowTodoList(todos);
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
+                }
+            }
         }
 
         static void EditTodoStatus(Todo[] todos)
