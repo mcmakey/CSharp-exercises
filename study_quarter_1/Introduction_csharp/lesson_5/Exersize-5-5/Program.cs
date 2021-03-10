@@ -20,6 +20,14 @@ namespace Exersize_5_5
 {
     class Program
     {
+
+        enum Actions
+        {
+            Quit,
+            Add,
+            Remove,
+            Toggle
+        }
         static void Main(string[] args)
         {
 
@@ -29,10 +37,43 @@ namespace Exersize_5_5
 
             Todo[] todos = JsonSerializer.Deserialize<Todo[]>(File.ReadAllText(path));
 
-            ShowTodoList(todos);
-            EditTodoStatus(todos);
-            AddTodo(ref todos);
-            RemoveTodo(ref todos);
+            while (true)
+            {
+                ShowTodoList(todos);
+                Console.WriteLine();
+                Console.WriteLine("Выберете действие:");
+                Console.WriteLine("1 - Добавить новую задачу");
+                Console.WriteLine("2 - Удалить задачу");
+                Console.WriteLine("3 - Изменить статус задачи");
+                Console.WriteLine("0 - Закрыть приложение");
+
+                string action = Console.ReadLine();
+
+                if (Int32.TryParse(action, out int actionValue))
+                {
+                    switch (actionValue)
+                    {
+                        case (int)Actions.Add:
+                            AddTodo(ref todos);
+                            break;
+                        case (int)Actions.Remove:
+                            RemoveTodo(ref todos);
+                            break;
+                        case (int)Actions.Toggle:
+                            EditTodoStatus(todos);
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            Console.WriteLine("Нет такого действия");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод, попробуйте еще раз");
+                };
+            };
         }
 
         static void ShowTodoList(Todo[] todos)
