@@ -26,6 +26,8 @@ namespace Exercise_6_1
 
             ConsoleKeyInfo keyInfo;
 
+            TaskManager taskManager = new TaskManager();
+
             while (true)
             {
                 Console.WriteLine();
@@ -43,10 +45,11 @@ namespace Exercise_6_1
                 switch (keyInfo.KeyChar)
                 {
                     case exitApp:
-                        Console.WriteLine("exit");
+                        Console.WriteLine("Exit");
                         return;
                     case showProcesses:
                         Console.WriteLine("showProcesses");
+                        taskManager.ShowProcesses();
                         break;
                     case еndProcessById:
                         Console.WriteLine("еndProcessById");

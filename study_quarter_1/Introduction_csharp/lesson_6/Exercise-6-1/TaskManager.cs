@@ -10,7 +10,7 @@ namespace Exercise_6_1
 
         }
 
-        public void ShowTasks()
+        public void ShowProcesses()
         {
             Process[] tasks = Process.GetProcesses();
             Console.WriteLine();
