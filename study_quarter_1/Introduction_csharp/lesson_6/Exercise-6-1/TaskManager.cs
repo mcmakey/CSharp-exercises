@@ -23,13 +23,13 @@ namespace Exercise_6_1
             Console.WriteLine();
         }
 
-        public void EndTaskById(int id)
+        public void EndProcessById(int id)
         {   
             try
             {
                 Process process = Process.GetProcessById(id);
                 process.Kill();
-                Console.WriteLine($"Процесс с id {id} завершен");
+                Console.WriteLine($"Процесс с id {id} ({process.ProcessName}) завершен");
             }
             catch (Exception ex)
             {

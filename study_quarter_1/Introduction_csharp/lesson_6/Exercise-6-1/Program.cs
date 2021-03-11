@@ -45,19 +45,35 @@ namespace Exercise_6_1
                 switch (keyInfo.KeyChar)
                 {
                     case exitApp:
-                        Console.WriteLine("Exit");
+                        Console.WriteLine("Выход из приложения");
                         return;
                     case showProcesses:
-                        Console.WriteLine("showProcesses");
                         taskManager.ShowProcesses();
                         break;
                     case еndProcessById:
-                        Console.WriteLine("еndProcessById");
+                        taskManager.EndProcessById(GetProcessId());
                         break;
                     case еndPocessesByName:
                         Console.WriteLine("еndPocessesByName");
                         break;
                     default: break;
+                }
+            }
+        }
+
+        static int GetProcessId()
+        {
+            Console.WriteLine("Введите id процесса:");
+            while (true)
+            {
+                string stringId = Console.ReadLine();
+                if(Int32.TryParse(stringId, out int id))
+                {
+                    return id;
+                }
+                else
+                {
+                    Console.WriteLine("Некоректный ввод, попробуйте еще раз");
                 }
             }
         }
