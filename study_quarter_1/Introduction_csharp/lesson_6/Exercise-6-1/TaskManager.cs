@@ -31,9 +31,10 @@ namespace Exercise_6_1
                 process.Kill();
                 Console.WriteLine($"Процесс с id {id} завершен");
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine($"Произошла ошибка");
+                Console.WriteLine($"Произошла ошибка: {ex.Message}");
+                Console.WriteLine($"Тип исключения: {ex.GetType()}");
             }
         }
     }
