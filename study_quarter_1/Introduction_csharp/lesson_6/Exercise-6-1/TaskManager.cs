@@ -34,7 +34,6 @@ namespace Exercise_6_1
             catch (Exception ex)
             {
                 Console.WriteLine($"Произошла ошибка: {ex.Message}");
-                Console.WriteLine($"Тип исключения: {ex.GetType()}");
             }
         }
     }

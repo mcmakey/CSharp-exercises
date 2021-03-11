@@ -10,12 +10,53 @@ namespace Exercise_6_1
 {
     class Program
     {
+        enum Actions
+        {
+            ExitApp,
+            ShowProcesses,
+            EndProcessById,
+            EndPocessesByName,
+        }
         static void Main(string[] args)
         {
-            Console.WriteLine("Приложение Task Manager");
-            TaskManager taskManager = new TaskManager();
-            taskManager.ShowTasks();
-            taskManager.EndTaskById(100500);
+            const char exitApp = '0';
+            const char showProcesses = '1';
+            const char еndProcessById = '2';
+            const char еndPocessesByName = '3';
+
+            ConsoleKeyInfo keyInfo;
+
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine("выберите действие:");
+                Console.WriteLine();
+                Console.WriteLine("1 - показать активные процессы");
+                Console.WriteLine("2 - завершить процесс по id");
+                Console.WriteLine("3 - завершить процесс по имени");
+                Console.WriteLine("0 - выйти из приложения");
+                Console.WriteLine();
+
+                keyInfo = Console.ReadKey();
+                Console.WriteLine();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case exitApp:
+                        Console.WriteLine("exit");
+                        return;
+                    case showProcesses:
+                        Console.WriteLine("showProcesses");
+                        break;
+                    case еndProcessById:
+                        Console.WriteLine("еndProcessById");
+                        break;
+                    case еndPocessesByName:
+                        Console.WriteLine("еndPocessesByName");
+                        break;
+                    default: break;
+                }
+            }
         }
     }
 }
