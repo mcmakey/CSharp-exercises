@@ -36,5 +36,29 @@ namespace Exercise_6_1
                 Console.WriteLine($"Произошла ошибка: {ex.Message}");
             }
         }
+
+        public void EndProcessesByName(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+
+            if (processes.Length == 0)
+            {
+                Console.WriteLine($"Запущенных процессов с именем {name} нет");
+            }
+
+            foreach (var process in processes)
+            {
+                try
+                {
+                    process.Kill();
+                    Console.WriteLine($"Процесс {name} (id - {process.Id}) завершен");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Произошла ошибка: {ex.Message}");
+                }
+                
+            }
+        }
     }
 }

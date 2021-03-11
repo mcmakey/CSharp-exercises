@@ -31,7 +31,7 @@ namespace Exercise_6_1
             while (true)
             {
                 Console.WriteLine();
-                Console.WriteLine("выберите действие:");
+                Console.WriteLine("Выберите действие:");
                 Console.WriteLine();
                 Console.WriteLine("1 - показать активные процессы");
                 Console.WriteLine("2 - завершить процесс по id");
@@ -54,9 +54,11 @@ namespace Exercise_6_1
                         taskManager.EndProcessById(GetProcessId());
                         break;
                     case еndPocessesByName:
-                        Console.WriteLine("еndPocessesByName");
+                        taskManager.EndProcessesByName(GetProcessName());
                         break;
-                    default: break;
+                    default:
+                        Console.WriteLine("Проверьте правильность ввода");
+                        break;
                 }
             }
         }
@@ -76,6 +78,23 @@ namespace Exercise_6_1
                     Console.WriteLine("Некоректный ввод, попробуйте еще раз");
                 }
             }
+        }
+
+        public void EndProcessesByName(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+
+            foreach (var process in processes)
+            {
+                process.Kill();
+                Console.WriteLine($"Процесс {name} (id - {process.Id}) завершен");
+            }
+        }
+
+        static string GetProcessName()
+        {
+            Console.WriteLine("Введите имя удаляемого процесса:");
+            return Console.ReadLine();
         }
     }
 }
