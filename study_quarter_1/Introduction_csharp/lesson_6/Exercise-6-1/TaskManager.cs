@@ -57,7 +57,6 @@ namespace Exercise_6_1
                 {
                     Console.WriteLine($"Произошла ошибка: {ex.Message}");
                 }
-                
             }
         }
     }

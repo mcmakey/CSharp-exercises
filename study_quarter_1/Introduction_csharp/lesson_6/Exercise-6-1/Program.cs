@@ -10,13 +10,6 @@ namespace Exercise_6_1
 {
     class Program
     {
-        enum Actions
-        {
-            ExitApp,
-            ShowProcesses,
-            EndProcessById,
-            EndPocessesByName,
-        }
         static void Main(string[] args)
         {
             const char exitApp = '0';
@@ -33,10 +26,10 @@ namespace Exercise_6_1
                 Console.WriteLine();
                 Console.WriteLine("Выберите действие:");
                 Console.WriteLine();
-                Console.WriteLine("1 - показать активные процессы");
-                Console.WriteLine("2 - завершить процесс по id");
-                Console.WriteLine("3 - завершить процесс по имени");
-                Console.WriteLine("0 - выйти из приложения");
+                Console.WriteLine($"{showProcesses} - показать активные процессы");
+                Console.WriteLine($"{еndProcessById} - завершить процесс по id");
+                Console.WriteLine($"{еndPocessesByName} - завершить процесс по имени");
+                Console.WriteLine($"{exitApp} - выйти из приложения");
                 Console.WriteLine();
 
                 keyInfo = Console.ReadKey();
@@ -77,17 +70,6 @@ namespace Exercise_6_1
                 {
                     Console.WriteLine("Некоректный ввод, попробуйте еще раз");
                 }
-            }
-        }
-
-        public void EndProcessesByName(string name)
-        {
-            Process[] processes = Process.GetProcessesByName(name);
-
-            foreach (var process in processes)
-            {
-                process.Kill();
-                Console.WriteLine($"Процесс {name} (id - {process.Id}) завершен");
             }
         }
 
