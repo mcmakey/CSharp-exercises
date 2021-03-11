@@ -44,6 +44,7 @@ namespace Exercise_6_1
             if (processes.Length == 0)
             {
                 Console.WriteLine($"Запущенных процессов с именем {name} нет");
+                return;
             }
 
             foreach (var process in processes)
