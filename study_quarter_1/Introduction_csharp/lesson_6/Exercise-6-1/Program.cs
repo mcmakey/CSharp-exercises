@@ -4,6 +4,7 @@
 // Предусмотреть возможность завершения процессов с помощью указания его ID или имени процесса
 
 using System;
+using System.Diagnostics;
 
 namespace Exercise_6_1
 {
@@ -11,7 +12,9 @@ namespace Exercise_6_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Написать консольное приложение Task Manager");
+            Console.WriteLine("Приложение Task Manager");
+            TaskManager taskManager = new TaskManager(Process.GetProcesses());
+            taskManager.ShowTasks();
         }
     }
 }
