@@ -13,8 +13,9 @@ namespace Exercise_6_1
         static void Main(string[] args)
         {
             Console.WriteLine("Приложение Task Manager");
-            TaskManager taskManager = new TaskManager(Process.GetProcesses());
+            TaskManager taskManager = new TaskManager();
             taskManager.ShowTasks();
+            taskManager.EndTaskById(100500);
         }
     }
 }

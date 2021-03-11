@@ -1,29 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
 
 namespace Exercise_6_1
 {
     class TaskManager
     {
-        public Process[] Tasks { get; set; }
-
-        public TaskManager(Process[] tasks)
+        public TaskManager()
         {
-            Tasks = tasks;
+
         }
 
         public void ShowTasks()
         {
+            Process[] tasks = Process.GetProcesses();
             Console.WriteLine();
             Console.WriteLine("Список процессов:");
             Console.WriteLine();
-            for (int i = 0; i < Tasks.Length; i++)
+            for (int i = 0; i < tasks.Length; i++)
             {
-                Console.WriteLine($"{i + 1}   process id: {Tasks[i].Id}   process name: {Tasks[i].ProcessName}");
+                Console.WriteLine($"{i + 1}   process id: {tasks[i].Id}   process name: {tasks[i].ProcessName}");
             }
             Console.WriteLine();
+        }
+
+        public void EndTaskById(int id)
+        {   
+            try
+            {
+                Process process = Process.GetProcessById(id);
+                process.Kill();
+                Console.WriteLine($"Процесс с id {id} завершен");
+            }
+            catch
+            {
+                Console.WriteLine($"Произошла ошибка");
+            }
         }
     }
 }
