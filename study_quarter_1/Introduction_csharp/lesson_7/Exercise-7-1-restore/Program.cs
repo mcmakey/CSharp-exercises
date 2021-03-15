@@ -2,7 +2,7 @@
 // Type: Exercise_7_1.Program
 // Assembly: Exercise-7-1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 // MVID: C112FAA2-EEAC-4BBF-B131-1798553B6F00
-// Assembly location: D:\vav\star\2\w\learning\training\c#\geekbrains_kurs\code\homework\geekbrains_csharp_homework\study_quarter_1\Introduction_csharp\lesson_7\Exercise-7-1\bin\Debug\netcoreapp3.1\Exercise-7-1.dll
+// Assembly location: Introduction_csharp\lesson_7\Exercise-7-1\bin\Debug\netcoreapp3.1\Exercise-7-1.dll
 
 using System;
 
