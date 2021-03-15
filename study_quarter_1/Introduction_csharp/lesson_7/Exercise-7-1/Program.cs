@@ -14,7 +14,20 @@ namespace Exercise_7_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Пользователь вводит сторону квадрата. Найдите периметр и площадь квадрата.");
+            Console.WriteLine("Введите длинну стороны квадрата:");
+            while (true)
+            {
+                if (float.TryParse(Console.ReadLine(), out float side))
+                {
+                    Square square = new Square(side);
+                    Console.WriteLine($"Периметр квадрата со стороной {side} равен {square.GetPerimeter()}");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Это не число, попробуйте еще раз");
+                }
+            }
         }
     }
 }
