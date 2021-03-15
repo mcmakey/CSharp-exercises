@@ -23,6 +23,8 @@ namespace Exercise_7_1
       }
       Square square = new Square(result);
       Console.WriteLine(string.Format("Периметр квадрата со стороной {0} равен {1}", (object) result, (object) square.GetPerimeter()));
+      Console.WriteLine(string.Format("Площадь квадрата со стороной {0} равна {1}", (object) result, (object) square.GetArea()));
+      Console.ReadKey();
     }
   }
 }
