@@ -14,11 +14,21 @@ namespace Exercise_8_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Создать консольное приложение, которое при старте выводит приветствие");
+            Greeting();
+        }
 
-            var appSettings = ConfigurationManager.AppSettings;
-
-            Console.WriteLine(appSettings["greeting"]);
+        static void Greeting()
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                Console.WriteLine(appSettings["greeting"]);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine($"Произошла ошибка чтения настроек");
+                Console.WriteLine($"Но все равно, привет, пользователь");
+            }
         }
     }
 }
