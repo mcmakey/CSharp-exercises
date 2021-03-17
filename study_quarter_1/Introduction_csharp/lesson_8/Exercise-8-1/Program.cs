@@ -15,6 +15,8 @@ namespace Exercise_8_1
         static void Main(string[] args)
         {
             Greeting();
+
+            var user = GetPersonInfo();
         }
 
         static void Greeting()
@@ -29,6 +31,20 @@ namespace Exercise_8_1
                 Console.WriteLine($"Произошла ошибка чтения настроек");
                 Console.WriteLine($"Но все равно, привет, пользователь");
             }
+        }
+
+        static (string name, string age, string activities) GetPersonInfo()
+        {
+            Console.WriteLine("Ваше имя:");
+            var userName = Console.ReadLine();
+
+            Console.WriteLine("Ваш возраст:");
+            var userAge = Console.ReadLine();
+
+            Console.WriteLine("Ваш род деятельности:");
+            var userActivities = Console.ReadLine();
+
+            return (name: userName, age: userAge, activities: userActivities);
         }
     }
 }
