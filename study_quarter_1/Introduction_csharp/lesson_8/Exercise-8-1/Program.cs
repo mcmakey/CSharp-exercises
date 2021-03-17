@@ -6,6 +6,7 @@
 
 
 using System;
+using System.Configuration;
 
 namespace Exercise_8_1
 {
@@ -14,6 +15,10 @@ namespace Exercise_8_1
         static void Main(string[] args)
         {
             Console.WriteLine("Создать консольное приложение, которое при старте выводит приветствие");
+
+            var appSettings = ConfigurationManager.AppSettings;
+
+            Console.WriteLine(appSettings["greeting"]);
         }
     }
 }
