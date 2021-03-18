@@ -16,7 +16,12 @@ namespace Exercise_8_1
         {
             Greeting();
 
-            var user = GetPersonInfo();
+            (string name, string age, string activities) user = GetPersonInfo();
+            
+
+            UpdateAppSettings("userName", user.name);
+            UpdateAppSettings("userAge", user.age);
+            UpdateAppSettings("userActivities", user.activities);
         }
 
         static void Greeting()
@@ -29,7 +34,6 @@ namespace Exercise_8_1
             catch (ConfigurationErrorsException)
             {
                 Console.WriteLine($"Произошла ошибка чтения настроек");
-                Console.WriteLine($"Но все равно, привет, пользователь");
             }
         }
 
@@ -45,6 +49,31 @@ namespace Exercise_8_1
             var userActivities = Console.ReadLine();
 
             return (name: userName, age: userAge, activities: userActivities);
+        }
+
+        static void UpdateAppSettings (string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine($"Произошла ошибка записи настроек");
+            }
         }
     }
 }
