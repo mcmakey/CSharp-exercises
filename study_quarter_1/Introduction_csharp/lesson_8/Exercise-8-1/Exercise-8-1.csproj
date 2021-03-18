@@ -4,6 +4,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Exercise_8_1</RootNamespace>
+    <Version>1.1.1</Version>
+    <Authors>Vadim</Authors>
+    <Description>greeting and save user information</Description>
   </PropertyGroup>
 
   <ItemGroup>
