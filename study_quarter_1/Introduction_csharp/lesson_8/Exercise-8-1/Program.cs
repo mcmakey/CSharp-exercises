@@ -102,7 +102,7 @@ namespace Exercise_8_1
             }
             catch (ConfigurationErrorsException)
             {
-                Console.WriteLine($"Произошла ошибка записи настроек");
+                Console.WriteLine($"Произошла ошибка чтения настроек");
             }
         }
     }
