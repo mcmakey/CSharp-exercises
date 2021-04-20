@@ -9,8 +9,6 @@ namespace Exercise_3
 {
     class Program
     {
-        // Класс для тестирования
-        
         static void Main(string[] args)
         {
             TestCase testCase1 = new TestCase()
@@ -32,16 +30,17 @@ namespace Exercise_3
             };
 
             Console.WriteLine("Тест рекурсивного метода:");
-            TestGetFibonaciRecursive(testCase1);
-            TestGetFibonaciRecursive(testCase2);
-            TestGetFibonaciRecursive(testCase3);
+            TestGetFibonaci(GetFibonaciRecursive, testCase1);
+            TestGetFibonaci(GetFibonaciRecursive, testCase2);
+            TestGetFibonaci(GetFibonaciRecursive, testCase3);
 
             Console.WriteLine("Тест нерекурсивного метода:");
-            TestGetFibonaci(testCase1);
-            TestGetFibonaci(testCase2);
-            TestGetFibonaci(testCase3);
+            TestGetFibonaci(GetFibonaci, testCase1);
+            TestGetFibonaci(GetFibonaci, testCase2);
+            TestGetFibonaci(GetFibonaci, testCase3);
         }
 
+        // Класс для тестирования
         public class TestCase
         {
             public int Number { get; set; }
@@ -49,9 +48,9 @@ namespace Exercise_3
         }
 
         // Метод для тестирование
-        static void TestGetFibonaciRecursive(TestCase testCase)
+        static void TestGetFibonaci(Func<int, int> getFi, TestCase testCase)
         {
-            var actual = GetFibonaciRecursive(testCase.Number);
+            var actual = getFi(testCase.Number);
             if (actual == testCase.Expected)
             {
                 Console.WriteLine("VALID TEST");
@@ -62,21 +61,7 @@ namespace Exercise_3
             }
         }
 
-        // Метод для тестирование
-        static void TestGetFibonaci(TestCase testCase)
-        {
-            var actual = GetFibonaci(testCase.Number);
-            if (actual == testCase.Expected)
-            {
-                Console.WriteLine("VALID TEST");
-            }
-            else
-            {
-                Console.WriteLine("INVALID TEST");
-            }
-        }
-
-        // Получение числа фибоначчи рекурсивным способом
+        // Метод получения числа фибоначчи рекурсивным способом
         static int GetFibonaciRecursive(int n)
         {
             if (n == 0)
@@ -91,7 +76,7 @@ namespace Exercise_3
             return GetFibonaciRecursive(n - 2) + GetFibonaciRecursive(n - 1);
         }
 
-        // Получение числа фибоначчи без рекурсии
+        // Метод получения числа фибоначчи без рекурсии
         static int GetFibonaci(int n)
         {
             int fi = 0;
