@@ -9,9 +9,119 @@ namespace Exercise_3
 {
     class Program
     {
+        // Класс для тестирования
+        
         static void Main(string[] args)
         {
-            Console.WriteLine("Функция вычисления числа Фибоначчи");
+            TestCase testCase1 = new TestCase()
+            {
+                Number = 1,
+                Expected = 1
+            };
+
+            TestCase testCase2 = new TestCase()
+            {
+                Number = 6,
+                Expected = 8
+            };
+
+            TestCase testCase3 = new TestCase()
+            {
+                Number = 13,
+                Expected = 233
+            };
+
+            Console.WriteLine("Тест рекурсивного метода:");
+            TestGetFibonaciRecursive(testCase1);
+            TestGetFibonaciRecursive(testCase2);
+            TestGetFibonaciRecursive(testCase3);
+
+            Console.WriteLine("Тест нерекурсивного метода:");
+            TestGetFibonaci(testCase1);
+            TestGetFibonaci(testCase2);
+            TestGetFibonaci(testCase3);
+        }
+
+        public class TestCase
+        {
+            public int Number { get; set; }
+            public int Expected { get; set; }
+        }
+
+        // Метод для тестирование
+        static void TestGetFibonaciRecursive(TestCase testCase)
+        {
+            var actual = GetFibonaciRecursive(testCase.Number);
+            if (actual == testCase.Expected)
+            {
+                Console.WriteLine("VALID TEST");
+            }
+            else
+            {
+                Console.WriteLine("INVALID TEST");
+            }
+        }
+
+        // Метод для тестирование
+        static void TestGetFibonaci(TestCase testCase)
+        {
+            var actual = GetFibonaci(testCase.Number);
+            if (actual == testCase.Expected)
+            {
+                Console.WriteLine("VALID TEST");
+            }
+            else
+            {
+                Console.WriteLine("INVALID TEST");
+            }
+        }
+
+        // Получение числа фибоначчи рекурсивным способом
+        static int GetFibonaciRecursive(int n)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+            else if (n == 1)
+            {
+                return 1;
+            }
+
+            return GetFibonaciRecursive(n - 2) + GetFibonaciRecursive(n - 1);
+        }
+
+        // Получение числа фибоначчи без рекурсии
+        static int GetFibonaci(int n)
+        {
+            int fi = 0;
+            int value0 = 0;
+            int value1 = 1;
+
+            var previousNumber1 = value0;
+            var previousNumber2 = value1;
+
+            if (n == 0)
+            {
+                fi = value0;
+            } 
+            else if (n == 1)
+            {
+                fi = value1;
+            }
+            else
+            {
+                for (int i = 2; i <= n; i++)
+                {
+                    fi = previousNumber1 + previousNumber2; // Вычисление n-го числа фибоначии
+
+                    // Определение 2 предыдущих чисел фибоначи, для вычисления очередного числа фибоначи в следуюущей итерации цикла
+                    previousNumber1 = previousNumber2;
+                    previousNumber2 = fi;
+                }
+            }
+
+            return fi;
         }
     }
 }
