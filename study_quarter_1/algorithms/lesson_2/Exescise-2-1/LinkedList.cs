@@ -36,7 +36,15 @@ namespace Exescise_2_1
 
         public int GetCount()
         {
-            return 7;
+            var node = _top;
+            var counter = 0;
+
+            while (node.NextNode != null)
+            {
+                counter++;
+            }
+
+            return counter - 1; // 1 - ограничитель сверху (_top);
         }
 
         public void AddNode(int value)
