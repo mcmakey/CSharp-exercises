@@ -96,14 +96,13 @@ namespace Exescise_2_1
                 currentIndex++;
             }
 
-            // Обновление ссылок
-            node.PrevNode.NextNode = node.NextNode;
-            node.NextNode.PrevNode = node.PrevNode;
+            RemoveNode(node);
         }
 
         public void RemoveNode(Node node)
         {
-
+            node.PrevNode.NextNode = node.NextNode;
+            node.NextNode.PrevNode = node.PrevNode;
         }
 
         public Node FindNode(int searchValue)
