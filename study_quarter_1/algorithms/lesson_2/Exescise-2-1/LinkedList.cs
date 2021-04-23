@@ -14,11 +14,41 @@ namespace Exescise_2_1
         Node FindNode(int searchValue); // ищет элемент по его значению
     }
 
-    class LinkedList
+    class LinkedList : ILinkedList
     {
         public LinkedList()
         {
+            
+        }
 
+        public int GetCount()
+        {
+            return 7;
+        }
+
+        public void AddNode(int value)
+        {
+
+        }
+
+        public void AddNodeAfter(Node node, int value)
+        {
+
+        }
+
+        public void RemoveNode(int index)
+        {
+
+        }
+
+        public void RemoveNode(Node node)
+        {
+
+        }
+
+        public Node FindNode(int searchValue)
+        {
+            return new Node();
         }
     }
 }
