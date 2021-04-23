@@ -107,7 +107,14 @@ namespace Exescise_2_1
 
         public Node FindNode(int searchValue)
         {
-            return new Node();
+            var node = _top;
+
+            while(node.Value != searchValue)
+            {
+                node = node.NextNode;
+            }
+
+            return node;
         }
     }
 }
