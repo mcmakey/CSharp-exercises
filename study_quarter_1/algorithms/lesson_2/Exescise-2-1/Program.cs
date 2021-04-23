@@ -10,7 +10,7 @@ namespace Exescise_2_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Требуется реализовать класс двусвязного списка");
+            Console.WriteLine("Hello World!");
         }
     }
 }
