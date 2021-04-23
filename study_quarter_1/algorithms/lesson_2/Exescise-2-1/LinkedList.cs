@@ -16,9 +16,22 @@ namespace Exescise_2_1
 
     class LinkedList : ILinkedList
     {
+        // Верхний ограничитель
+        private Node _top { get; }
+
+        // ВНижний ограничитель
+        private Node _low { get; }
+
         public LinkedList()
         {
-            
+            this._top = new Node();
+            _top.NextNode = this._low;
+            _top.PrevNode = null;
+
+            this._low = new Node();
+            _low.NextNode = null;
+            _low.PrevNode = _top;
+
         }
 
         public int GetCount()
@@ -28,7 +41,26 @@ namespace Exescise_2_1
 
         public void AddNode(int value)
         {
+            var node = _top;
 
+            // нахождение последней ячейки
+            while (node.NextNode != null)
+            {
+                node = node.NextNode;
+            }
+
+            // Создание новой ячейки
+            var newNode = new Node { Value = value };
+
+            // Ссылка на новою ячейку "сверху"
+            node.NextNode = newNode;
+
+            // Ссылка на новую ячейку с нижнего ограничителя
+            _low.PrevNode = newNode;
+            
+            // Ссылки новой ячейки    
+            newNode.NextNode = _low;
+            newNode.PrevNode = node;
         }
 
         public void AddNodeAfter(Node node, int value)
