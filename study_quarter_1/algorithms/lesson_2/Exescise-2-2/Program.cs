@@ -74,7 +74,7 @@ namespace Exescise_2_2
             var minIndex = 0;
             var maxIndex = array.Length - 1;
 
-            while (minIndex <= maxIndex)
+            while (minIndex <= maxIndex) // N/2
             {
                 int midIndex = (minIndex + maxIndex) / 2;
                 if (value == array[midIndex])
@@ -91,7 +91,21 @@ namespace Exescise_2_2
                 }
             }
 
+            // Целевого элемента в массиве нет
             return -1;
         }
     }
 }
+
+// Вычисление асимптотической сложности:
+// [N]/2 + [(N/2)]/2 + [((N/2)/2)]/2...
+// или
+// N/2^1 + N/2^2 + N/2^3 +..... + N/2^x
+// Худший случай - N/2:x , где x таково, что 2^x = N
+// Тогда 
+// 2 x = N
+//=> log2(2^x) = log2(N)
+//=> x*log2(2) = log2(N)
+//=> x * 1 = log2(N) 
+
+// T.e асимптотическая сложность -  O(logN)
