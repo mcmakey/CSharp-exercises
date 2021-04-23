@@ -31,7 +31,6 @@ namespace Exescise_2_1
             this._low = new Node();
             _low.NextNode = null;
             _low.PrevNode = _top;
-
         }
 
         public int GetCount()
@@ -73,7 +72,16 @@ namespace Exescise_2_1
 
         public void AddNodeAfter(Node node, int value)
         {
+            // Создание новой ячейки
+            var newNode = new Node { Value = value };
 
+            // Обновляем ссылки на следующую ячейку.
+            newNode.NextNode = node.NextNode;
+            node.NextNode = newNode;
+
+            // Обновляем ссылки на предыдущую ячейку.
+            newNode.NextNode.PrevNode = newNode;
+            newNode.PrevNode = node;
         }
 
         public void RemoveNode(int index)
