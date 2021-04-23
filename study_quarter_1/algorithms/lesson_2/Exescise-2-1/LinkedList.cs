@@ -86,7 +86,19 @@ namespace Exescise_2_1
 
         public void RemoveNode(int index)
         {
+            var currentIndex = 0; // 0 - индекс первой ячейки (верхнего ограничителя)
+            var node = _top;
 
+            // нахождение удаляемой ячейки
+            while (currentIndex - 1 != index)
+            {
+                node = node.NextNode;
+                currentIndex++;
+            }
+
+            // Обновление ссылок
+            node.PrevNode.NextNode = node.NextNode;
+            node.NextNode.PrevNode = node.PrevNode;
         }
 
         public void RemoveNode(Node node)
