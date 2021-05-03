@@ -9,7 +9,7 @@ namespace Exescise_5_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("DFS и BFS для дерева");
+            
         }
     }
 }
