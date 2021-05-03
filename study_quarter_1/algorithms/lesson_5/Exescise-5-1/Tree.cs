@@ -78,5 +78,27 @@ namespace Exescise_5_1
         {
             PreOrderTravers(_root);
         }
+
+        // Обход дерева в ширину
+        public void BreadthFirstSearch()
+        {
+            Queue<Node> consideredNodes = new Queue<Node>();
+
+            consideredNodes.Enqueue(_root);
+
+            while (consideredNodes.Count != 0)
+            {
+                var currentNode = consideredNodes.Dequeue();
+                Console.Write($"{currentNode.Data}, ");
+                if (currentNode.Left != null)
+                {
+                    consideredNodes.Enqueue(currentNode.Left);
+                }
+                if (currentNode.Right != null)
+                {
+                    consideredNodes.Enqueue(currentNode.Right);
+                }
+            }
+        }
     }
 }

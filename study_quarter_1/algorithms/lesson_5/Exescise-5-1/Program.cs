@@ -7,13 +7,18 @@ namespace Exescise_5_1
 {
     class Program
     {
-        const int NUMBER_NODES = 15;
+        const int NUMBER_NODES = 7;
         static void Main(string[] args)
         {
             BynaryTree tree = new BynaryTree(NUMBER_NODES);
 
             // Отображение дерева
             tree.Display();
+
+            Console.WriteLine();
+
+            // Обход дерева в ширину
+            tree.BreadthFirstSearch();
         }
     }
 }
