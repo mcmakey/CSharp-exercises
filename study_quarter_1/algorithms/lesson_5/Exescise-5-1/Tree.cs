@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Exescise_5_1
 {
@@ -86,6 +85,7 @@ namespace Exescise_5_1
 
             consideredNodes.Enqueue(_root);
 
+            Console.WriteLine("Обход дерева в ширину: ");
             while (consideredNodes.Count != 0)
             {
                 var currentNode = consideredNodes.Dequeue();
@@ -108,6 +108,7 @@ namespace Exescise_5_1
 
             consideredNodes.Push(_root);
 
+            Console.WriteLine("Обход дерева в глубину: ");
             while (consideredNodes.Count != 0)
             {
                 var currentNode = consideredNodes.Pop();
