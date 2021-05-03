@@ -100,5 +100,28 @@ namespace Exescise_5_1
                 }
             }
         }
+
+        // Обход дерева в глубину
+        public void DeepFirstSearch()
+        {
+            Stack<Node> consideredNodes = new Stack<Node>();
+
+            consideredNodes.Push(_root);
+
+            while (consideredNodes.Count != 0)
+            {
+                var currentNode = consideredNodes.Pop();
+                Console.Write($"{currentNode.Data}, ");
+
+                if (currentNode.Right != null)
+                {
+                    consideredNodes.Push(currentNode.Right);
+                }
+                if (currentNode.Left != null)
+                {
+                    consideredNodes.Push(currentNode.Left);
+                }
+            }
+        }
     }
 }

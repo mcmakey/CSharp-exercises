@@ -19,6 +19,11 @@ namespace Exescise_5_1
 
             // Обход дерева в ширину
             tree.BreadthFirstSearch();
+
+            Console.WriteLine();
+
+            // Обход дерева в глубину
+            tree.DeepFirstSearch();
         }
     }
 }
