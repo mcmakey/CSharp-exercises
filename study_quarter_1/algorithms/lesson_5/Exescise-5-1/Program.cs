@@ -7,9 +7,10 @@ namespace Exescise_5_1
 {
     class Program
     {
+        const int NUMBER_NODES = 15;
         static void Main(string[] args)
         {
-            
+            BynaryTree tree = new BynaryTree(NUMBER_NODES);
         }
     }
 }

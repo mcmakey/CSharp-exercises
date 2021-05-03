@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Exescise_5_1
 {
-    public class Node<T>
+    public class Node
     {
-        public T Data { get; set; }
-        public Node<T> Left { get; set; }
-        public Node<T> Right { get; set; }
+        public int Data { get; set; }
+        public Node Left { get; set; }
+        public Node Right { get; set; }
     }
 
 }
