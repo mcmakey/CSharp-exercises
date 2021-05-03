@@ -11,6 +11,9 @@ namespace Exescise_5_1
         static void Main(string[] args)
         {
             BynaryTree tree = new BynaryTree(NUMBER_NODES);
+
+            // Отображение дерева
+            tree.Display();
         }
     }
 }
