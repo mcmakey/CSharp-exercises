@@ -26,24 +26,27 @@ namespace Exercise_7_1
                 new Thing("Вода", 3, 10),
                 new Thing("Книга", 1, 3),
                 new Thing("Еда", 2, 9),
-                new Thing("Куртка", 3, 10),
-                new Thing("Камера", 3, 10)
+                new Thing("Куртка", 2, 5),
+                new Thing("Камера", 1, 6)
             };
 
             var optimalSetThings = backpack.GetOptimalSetThings(things);
 
             // Вывод результата
-            Console.WriteLine($"Для рюкзака вместимостью {backpack.Capacity}");
-            Console.WriteLine($"И набора вещей:");
-            foreach (var thing in things)
-            {
-                Console.WriteLine($"{thing.Name} (вес {thing.Weight}, полезность {thing.Utility})");
-            }
-            Console.WriteLine($"Оптимальным набором будет:");
-            foreach (var thing in optimalSetThings)
-            {
-                Console.WriteLine(thing.Name);
-            }
+            //Console.WriteLine($"Для рюкзака вместимостью {backpack.Capacity}");
+            //Console.WriteLine($"И набора вещей:");
+            //foreach (var thing in things)
+            //{
+            //    Console.WriteLine($"{thing.Name} (вес {thing.Weight}, полезность {thing.Utility})");
+            //}
+            //Console.WriteLine($"Оптимальным набором будет:");
+            //foreach (var thing in optimalSetThings)
+            //{
+            //    Console.WriteLine(thing.Name);
+            //}
+
+            //ttt
+            Console.WriteLine($"максимальная возможная ценность: {backpack.GetMaxCost(things)}");
         }
 
         static void DisplayResult(List<Thing> optimalSetThigs)
