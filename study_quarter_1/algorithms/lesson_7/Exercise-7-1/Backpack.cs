@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Exercise_7_1
 {
@@ -15,25 +15,50 @@ namespace Exercise_7_1
             this.Capacity = capacity;
         }
 
-        public List<Thing> GetOptimalSetThings(Thing[] allThings)
+        public Set GetOptimalSetThings(Thing[] allThings)
         {
-            var optimalSetThing = new List<Thing>();
+            Set[,] table = new Set[allThings.Length, this.Capacity + 1];
 
-            // Заглушка:
-            // optimalSetThing.Add(allThings[0]);
-            // optimalSetThing.Add(allThings[2]);
+            // Заполнение ячеек первой строки таблицы
+            table[0, 0] = new Set(new Thing[] { new Thing("zero", 0, 0) }); // Первый столбец для нулевой вместимости рюкзака
+            for (int j = 1; j <= Capacity; j++)
+            {
+                table[0, j] = allThings[0].Weight <= j 
+                    ? new Set(new Thing[] { allThings[0] }) 
+                    : new Set(new Thing[] { new Thing("zero", 0, 0) });
+            }
 
-            //for (int i = 0; i < allThings.Length; i++)
-            //{
-            //    for (int j = 0; j < this.Capacity; j++)
-            //    {
+            // Заполнение ячеек остальных строк таблицы
+            for (int i = 1; i < allThings.Length; i++)
+            {
+                table[i, 0] = new Set(new Thing[] { new Thing("zero", 0, 0)}); // Первый столбец для нулевой вместимости рюкзака
+                for (int j = 1; j <= this.Capacity; j++)
+                {
+                    if (allThings[i].Weight > j)
+                    {
+                        table[i, j] = new Set(table[i - 1, j].Things);
+                    }
+                    else
+                    {
+                        var ttt = new Thing[] { allThings[i] };
+                        var ppp = table[i - 1, j - allThings[i].Weight].Things; 
+                        var zzz = ttt.Concat<Thing>(ppp).ToArray();
+                       
+                        if (table[i - 1, j].Utility > allThings[i].Utility + table[i - 1, j - allThings[i].Weight].Utility)
+                        {
+                            table[i, j] = new Set(table[i - 1, j].Things);
+                        }
+                        else
+                        {
+                            table[i, j] = new Set(zzz);
+                        }
+                    }
+                }
+            }
+            Console.WriteLine();
 
-            //    }
-            //}
-
-            return optimalSetThing;
+            return table[allThings.Length - 1, this.Capacity];
         }
-
 
         // Метод определения максимальной полезности предметов, которые вместятся в рюкзак
         public int GetMaxCost(Thing[] allThings)
@@ -42,8 +67,9 @@ namespace Exercise_7_1
             int[,] table = new int[allThings.Length, this.Capacity + 1];
 
             // Заполнение ячеек первой строки таблицы
-            table[1, 0] = 0; // Первый столбец для нулевой вместимости рюкзака
-            Console.Write($"{0} ");
+            table[0, 0] = 0; // Первый столбец для нулевой вместимости рюкзака
+            totalUtility = table[1, 0]; // 
+            Console.Write($"{totalUtility} "); // 
             for (int j = 1; j <= Capacity; j++)
             {
                 table[0, j] = allThings[0].Weight <= j ? allThings[0].Utility : 0;

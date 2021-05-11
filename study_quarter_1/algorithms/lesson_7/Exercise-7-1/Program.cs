@@ -30,7 +30,7 @@ namespace Exercise_7_1
                 new Thing("Камера", 1, 6)
             };
 
-            var optimalSetThings = backpack.GetOptimalSetThings(things);
+            
 
             // Вывод результата
             //Console.WriteLine($"Для рюкзака вместимостью {backpack.Capacity}");
@@ -47,6 +47,16 @@ namespace Exercise_7_1
 
             //ttt
             Console.WriteLine($"максимальная возможная ценность: {backpack.GetMaxCost(things)}");
+            Console.WriteLine();
+            ///
+
+            var optimalSetThings = backpack.GetOptimalSetThings(things);
+            Console.WriteLine(optimalSetThings.Utility);
+
+            foreach (var thing in optimalSetThings.Things)
+            {
+                Console.WriteLine(thing.Name);
+            }
         }
 
         static void DisplayResult(List<Thing> optimalSetThigs)
