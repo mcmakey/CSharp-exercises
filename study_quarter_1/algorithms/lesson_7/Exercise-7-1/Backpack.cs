@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Exercise_7_1
@@ -60,20 +59,21 @@ namespace Exercise_7_1
         public Set GetOptimalSetThings(Thing[] allThings)
         {
             Set[,] table = new Set[allThings.Length, this.Capacity + 1];
+            Thing nullThing = new Thing("", 0, 0); // Для ячеек таблицы, которые должны быть "нулевыми"
 
             // Заполнение ячеек первой строки таблицы
-            table[0, 0] = new Set(new Thing[] { new Thing("zero", 0, 0) }); // Первый столбец для нулевой вместимости рюкзака
+            table[0, 0] = new Set(new Thing[] { nullThing }); // Первый столбец для нулевой вместимости рюкзака
             for (int j = 1; j <= Capacity; j++)
             {
                 table[0, j] = allThings[0].Weight <= j 
                     ? new Set(new Thing[] { allThings[0] }) 
-                    : new Set(new Thing[] { new Thing("zero", 0, 0) });
+                    : new Set(new Thing[] { nullThing });
             }
 
             // Заполнение ячеек остальных строк таблицы
             for (int i = 1; i < allThings.Length; i++)
             {
-                table[i, 0] = new Set(new Thing[] { new Thing("zero", 0, 0)}); // Первый столбец для нулевой вместимости рюкзака
+                table[i, 0] = new Set(new Thing[] { nullThing }); // Первый столбец для нулевой вместимости рюкзака
                 for (int j = 1; j <= this.Capacity; j++)
                 {
                     if (allThings[i].Weight > j)

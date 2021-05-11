@@ -12,7 +12,6 @@
 // Какой оптимальный набор предметов для похода?
 
 using System;
-using System.Collections.Generic;
 
 namespace Exercise_7_1
 {
