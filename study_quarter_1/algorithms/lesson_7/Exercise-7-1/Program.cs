@@ -20,8 +20,10 @@ namespace Exercise_7_1
     {
         static void Main(string[] args)
         {
+            // Рюкзак
             Backpack backpack = new Backpack(6);
 
+            // Исходный набор предметов
             Thing[] things = {
                 new Thing("Вода", 3, 10),
                 new Thing("Книга", 1, 3),
@@ -30,38 +32,19 @@ namespace Exercise_7_1
                 new Thing("Камера", 1, 6)
             };
 
-            
-
-            // Вывод результата
-            //Console.WriteLine($"Для рюкзака вместимостью {backpack.Capacity}");
-            //Console.WriteLine($"И набора вещей:");
-            //foreach (var thing in things)
-            //{
-            //    Console.WriteLine($"{thing.Name} (вес {thing.Weight}, полезность {thing.Utility})");
-            //}
-            //Console.WriteLine($"Оптимальным набором будет:");
-            //foreach (var thing in optimalSetThings)
-            //{
-            //    Console.WriteLine(thing.Name);
-            //}
-
-            //ttt
-            Console.WriteLine($"максимальная возможная ценность: {backpack.GetMaxCost(things)}");
+            // Отображение максимальной ценности (с визуализацией таблицы)
+            Console.WriteLine($"максимальная возможная общая ценность предметов, которые поместится в рюкзак: {backpack.GetMaxUtility(things)}");
             Console.WriteLine();
-            ///
-
+            
+            // Отображение оптимального по ценности набора предметов, помещающегося в рюкзак
             var optimalSetThings = backpack.GetOptimalSetThings(things);
-            Console.WriteLine(optimalSetThings.Utility);
 
+            Console.WriteLine($"Для рюкзака вместимостью {backpack.Capacity} оптимальным набором предметов (по максимальной общей ценности) будет:");
             foreach (var thing in optimalSetThings.Things)
             {
                 Console.WriteLine(thing.Name);
             }
-        }
-
-        static void DisplayResult(List<Thing> optimalSetThigs)
-        {
-            
+            Console.WriteLine($"Общая ценность - {optimalSetThings.Utility}");
         }
     }
 }
