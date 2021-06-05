@@ -11,7 +11,7 @@ namespace Exercise_1.Controllers
     {
         private readonly WeatherDiary _weatherDiary;
 
-        public WeatherDiaryController(WeatherDiary weatherDiary) 
+        public WeatherDiaryController(WeatherDiary weatherDiary)
         {
             _weatherDiary = weatherDiary;
         }
@@ -19,12 +19,17 @@ namespace Exercise_1.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromQuery] string time, [FromQuery] string temperature)
         {
-            // TODO: try parse
-            var timeValue = DateTime.Parse(time);
-            var temperatureValue = Int32.Parse(temperature);
-            WeatherDiaryEntry entry = new WeatherDiaryEntry(timeValue, temperatureValue);
-            _weatherDiary.Entries.Add(entry);
-            return Ok();
+            if (
+                DateTime.TryParse(time, out DateTime timeValue) &&
+                Int32.TryParse(temperature, out int temperatureValue)
+            )
+            {
+                WeatherDiaryEntry entry = new WeatherDiaryEntry(timeValue, temperatureValue);
+                _weatherDiary.Entries.Add(entry);
+                return Ok();
+            }
+
+            return BadRequest("невалидные данные");
         }
 
         // TODO: for dev
@@ -37,55 +42,70 @@ namespace Exercise_1.Controllers
         [HttpGet("readbytimeinterval")]
         public IActionResult ReadByTimeInterval([FromQuery] string start, [FromQuery] string end)
         {
-            // TODO: try parse
-            var startIntervalValue = DateTime.Parse(start);
-            var endIntervalValue = DateTime.Parse(end);
-
-            List<WeatherDiaryEntry> samplingByTimeInterval = new List<WeatherDiaryEntry> { };
-
-            foreach (var entry in _weatherDiary.Entries)
+            if (
+                DateTime.TryParse(start, out DateTime startIntervalValue) &&
+                DateTime.TryParse(end, out DateTime endIntervalValue)
+            )
             {
-                if ( startIntervalValue <= entry.Time && entry.Time <= endIntervalValue)
+                List<WeatherDiaryEntry> samplingByTimeInterval = new List<WeatherDiaryEntry> { };
+
+                foreach (var entry in _weatherDiary.Entries)
                 {
-                    samplingByTimeInterval.Add(entry);
+                    if (startIntervalValue <= entry.Time && entry.Time <= endIntervalValue)
+                    {
+                        samplingByTimeInterval.Add(entry);
+                    }
                 }
+
+                return Ok(samplingByTimeInterval);
             }
 
-            return Ok(samplingByTimeInterval);
+            return BadRequest("невалидные данные");
         }
 
         [HttpPut("editbytime")]
         public IActionResult EditByTime([FromQuery] string time, [FromQuery] string newTemperature)
         {
-            // TODO: try parse
-            var timeValue = DateTime.Parse(time);
-            var newTemperatureValue = int.Parse(newTemperature);
-            foreach (var entry in _weatherDiary.Entries)
+            if (
+                DateTime.TryParse(time, out DateTime timeValue) &&
+                Int32.TryParse(newTemperature, out int newTemperatureValue)
+            )
             {
-                if (entry.Time == timeValue)
+                foreach (var entry in _weatherDiary.Entries)
                 {
-                    entry.Temperature = newTemperatureValue;
+                    if (entry.Time == timeValue)
+                    {
+                        entry.Temperature = newTemperatureValue;
+                    }
                 }
+                return Ok();
             }
-            return Ok();
+
+            return BadRequest("невалидные данные");
         }
 
         [HttpDelete("deletebytimeinterval")]
         public IActionResult DeleteByTimeInterval([FromQuery] string start, [FromQuery] string end)
         {
-            // TODO: try parse
-            var startIntervalValue = DateTime.Parse(start);
-            var endIntervalValue = DateTime.Parse(end);
-
-            for (int i = 0; i < _weatherDiary.Entries.Count; i++)
+            if (
+                DateTime.TryParse(start, out DateTime startIntervalValue) &&
+                DateTime.TryParse(end, out DateTime endIntervalValue)
+            )
             {
-                if(startIntervalValue <= _weatherDiary.Entries[i].Time && _weatherDiary.Entries[i].Time <= endIntervalValue)
+                for (int i = 0; i < _weatherDiary.Entries.Count; i++)
                 {
-                    _weatherDiary.Entries.Remove(_weatherDiary.Entries[i]);
+                    if (startIntervalValue <= _weatherDiary.Entries[i].Time &&
+                        _weatherDiary.Entries[i].Time <= endIntervalValue
+                    )
+                    {
+                        _weatherDiary.Entries.Remove(_weatherDiary.Entries[i]);
+                    }
                 }
+
+                return Ok();
             }
 
-            return Ok();
+            return BadRequest("невалидные данные");
         }
     }
 }
