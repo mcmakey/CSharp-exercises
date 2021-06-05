@@ -55,8 +55,18 @@ namespace Exercise_1.Controllers
         }
 
         [HttpPut("editbytime")]
-        public IActionResult EditByTime([FromQuery] string time)
+        public IActionResult EditByTime([FromQuery] string time, [FromQuery] string newTemperature)
         {
+            // TODO: try parse
+            var timeValue = DateTime.Parse(time);
+            var newTemperatureValue = int.Parse(newTemperature);
+            foreach (var entry in _weatherDiary.Entries)
+            {
+                if (entry.Time == timeValue)
+                {
+                    entry.Temperature = newTemperatureValue;
+                }
+            }
             return Ok();
         }
 

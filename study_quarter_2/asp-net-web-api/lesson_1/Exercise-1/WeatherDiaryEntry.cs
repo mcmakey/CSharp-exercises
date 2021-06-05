@@ -21,6 +21,7 @@ namespace Exercise_1
         public int Temperature
         {
             get => _temperature;
+            set => _temperature = value;
         }
     }
 }
