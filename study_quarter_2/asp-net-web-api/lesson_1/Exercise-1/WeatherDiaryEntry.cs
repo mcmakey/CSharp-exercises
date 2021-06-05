@@ -5,9 +5,9 @@ namespace Exercise_1
     public class WeatherDiaryEntry
     {
         private DateTime _time;
-        private sbyte _temperature;
+        private int _temperature;
 
-        public WeatherDiaryEntry(DateTime time, sbyte temperature)
+        public WeatherDiaryEntry(DateTime time, int temperature)
         {
             _time = time;
             _temperature = temperature;
@@ -18,7 +18,7 @@ namespace Exercise_1
             get => _time;
         }
 
-        public sbyte Temperature
+        public int Temperature
         {
             get => _temperature;
         }
