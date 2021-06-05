@@ -32,13 +32,6 @@ namespace Exercise_1.Controllers
             return BadRequest("невалидные данные");
         }
 
-        // TODO: for dev
-        //[HttpGet("read")]
-        //public IActionResult Read()
-        //{
-        //    return Ok(_weatherDiary.Entries);
-        //}
-
         [HttpGet("readbytimeinterval")]
         public IActionResult ReadByTimeInterval([FromQuery] string start, [FromQuery] string end)
         {
