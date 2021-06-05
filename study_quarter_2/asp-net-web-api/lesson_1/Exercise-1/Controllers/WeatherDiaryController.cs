@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Exercise_1.Controllers
 {
@@ -18,18 +19,39 @@ namespace Exercise_1.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromQuery] string time, [FromQuery] string temperature)
         {
+            // TODO: try parse
             var timeValue = DateTime.Parse(time);
             var temperatureValue = Int32.Parse(temperature);
             WeatherDiaryEntry entry = new WeatherDiaryEntry(timeValue, temperatureValue);
             _weatherDiary.Entries.Add(entry);
             return Ok();
-            // TODO: try parse
+        }
+
+        // TODO: for dev
+        [HttpGet("read")]
+        public IActionResult Read()
+        {
+            return Ok(_weatherDiary.Entries);
         }
 
         [HttpGet("readbytimeinterval")]
-        public IActionResult ReadByTimeInterval(/*[FromQuery] string startInterval, [FromQuery] string endInterval*/)
+        public IActionResult ReadByTimeInterval([FromQuery] string start, [FromQuery] string end)
         {
-            return Ok(_weatherDiary.Entries);
+            // TODO: try parse
+            var startIntervalValue = DateTime.Parse(start);
+            var endIntervalValue = DateTime.Parse(end);
+
+            List<WeatherDiaryEntry> samplingByTimeInterval = new List<WeatherDiaryEntry> { };
+
+            foreach (var entry in _weatherDiary.Entries)
+            {
+                if ( startIntervalValue <= entry.Time && entry.Time <= endIntervalValue)
+                {
+                    samplingByTimeInterval.Add(entry);
+                }
+            }
+
+            return Ok(samplingByTimeInterval);
         }
 
         [HttpPut("editbytime")]

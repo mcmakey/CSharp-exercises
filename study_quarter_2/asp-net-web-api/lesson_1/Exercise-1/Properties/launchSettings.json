@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/weather/readbytimeinterval",
+      "launchUrl": "api/weather/read",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
