@@ -71,8 +71,20 @@ namespace Exercise_1.Controllers
         }
 
         [HttpDelete("deletebytimeinterval")]
-        public IActionResult DeleteByTimeInterval([FromQuery] string startInteral, [FromQuery] string endInterval)
+        public IActionResult DeleteByTimeInterval([FromQuery] string start, [FromQuery] string end)
         {
+            // TODO: try parse
+            var startIntervalValue = DateTime.Parse(start);
+            var endIntervalValue = DateTime.Parse(end);
+
+            for (int i = 0; i < _weatherDiary.Entries.Count; i++)
+            {
+                if(startIntervalValue <= _weatherDiary.Entries[i].Time && _weatherDiary.Entries[i].Time <= endIntervalValue)
+                {
+                    _weatherDiary.Entries.Remove(_weatherDiary.Entries[i]);
+                }
+            }
+
             return Ok();
         }
     }
