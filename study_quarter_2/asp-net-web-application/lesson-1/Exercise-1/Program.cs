@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -11,20 +12,14 @@ namespace Exercise_1
     {
         static readonly HttpClient client = new HttpClient();
         static readonly string url = "https://jsonplaceholder.typicode.com/posts/";
+        static readonly string fileName = "posts.txt";
         static async Task Main(string[] args)
         {
             int[] postIds = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
             
             var posts = await GetPostAsync(postIds);
 
-            foreach (var post in posts)
-            {
-                Console.WriteLine($"{post.UserId}");
-                Console.WriteLine($"{post.Id}");
-                Console.WriteLine($"{post.Title}");
-                Console.WriteLine($"{post.Body}");
-                Console.WriteLine();
-            }
+            SavePosts(fileName, posts);
         }
 
         public static async Task<Post> GetPostAsync(int id)
@@ -47,6 +42,20 @@ namespace Exercise_1
         {
             var getPosts = ids.Select(id => GetPostAsync(id));
             return await Task.WhenAll(getPosts);
+        }
+
+        public static async void SavePosts(string fileName, Post[] posts)
+        {
+            using StreamWriter writer = File.CreateText(fileName);
+
+            foreach (var post in posts)
+            {
+                await writer.WriteLineAsync($"{post.UserId}");
+                await writer.WriteLineAsync($"{post.Id}");
+                await writer.WriteLineAsync($"{post.Title}");
+                await writer.WriteLineAsync($"{post.Body}");
+                await writer.WriteLineAsync();
+            }
         }
     }
 }
