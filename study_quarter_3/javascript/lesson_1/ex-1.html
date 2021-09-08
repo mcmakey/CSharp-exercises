@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js-lesson1-ex1</title>
+</head>
+<body>
+    <script>
+        const getTemperatureFarengeit = (tempCelsius) => {
+            return (9 / 5) * tempCelsius + 32;
+        }
+
+        const temperatureCelsius = prompt('Введите температуру в градусах цельсия');
+
+        alert(`${temperatureCelsius}С = ${getTemperatureFarengeit(temperatureCelsius)}F`);
+    </script>
+</body>
+</html>
