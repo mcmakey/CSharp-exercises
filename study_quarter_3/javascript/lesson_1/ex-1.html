@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Js-lesson1-ex1</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ex-1</title>
+  </head>
+  <body>
+    <div>Задать температуру в градусах по Цельсию. Вывести в alert соответствующую температуру в градусах по Фаренгейту.</div>
+
     <script>
-        const getTemperatureFarengeit = (tempCelsius) => {
-            return (9 / 5) * tempCelsius + 32;
-        }
+      const getTemperatureFarengeit = (tempCelsius) => {
+        return (9 / 5) * tempCelsius + 32;
+      };
 
-        const temperatureCelsius = prompt('Введите температуру в градусах цельсия');
+      const temperatureCelsius = prompt("Введите температуру в градусах цельсия");
 
-        alert(`${temperatureCelsius}С = ${getTemperatureFarengeit(temperatureCelsius)}F`);
+      alert(`${temperatureCelsius}С = ${getTemperatureFarengeit(temperatureCelsius)}F`);
     </script>
-</body>
+  </body>
 </html>
