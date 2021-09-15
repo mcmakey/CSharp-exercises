@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>L2-Ex3</title>
+  </head>
+  <body>
+    <script>
+      const a = +prompt('Введите целое число "a""');
+      const b = +prompt('Введите целое число "b""');
+
+      alert(calc(a, b));
+
+      function calc(num1, num2) {
+        if (num1 >= 0 && num2 >= 0) {
+          return `${a} - ${b} = ${a - b}`;
+        } else if (num1 <= 0 && num2 <= 0) {
+          return `${a} * ${b} = ${a * b}`;
+        } else {
+          return `${a} + ${b} = ${a + b}`;
+        }
+      }
+    </script>
+  </body>
+</html>

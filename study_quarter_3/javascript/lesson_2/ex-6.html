@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>L2-Ex6</title>
+  </head>
+  <body>
+    <script>
+      const enteredSumm = parseInt(prompt("Введите сумму")); // не будем возиться с копейками
+
+      showTransactionMesage(enteredSumm);
+
+      function showTransactionMesage(summ) {
+        const currency = getCurrencyName(summ);
+        alert(`Ваша сумма в ${summ} ${currency} успешно зачислена`);
+      }
+
+      function getCurrencyName(summ) {
+        const summString = String(summ);
+        const lastNumber = Number(summString[summString.length - 1]);
+
+        if (lastNumber == 1) {
+          return "рубль";
+        } else if (lastNumber > 1 && lastNumber < 5) {
+          return "рубля";
+        } else {
+          return "рублей";
+        }
+      }
+    </script>
+  </body>
+</html>
