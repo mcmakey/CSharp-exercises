@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>js-l3-ex1</title>
+    </head>
+    <body>
+        <script>
+            showNumericalSequence(10)
+
+            function showNumericalSequence(lastNumber) {
+                for (let i = 0; i <= lastNumber; i++) {
+                    if (i == 0) {
+                        console.log("0 - это 0")
+                    } else if (isEven(i)) {
+                        console.log(`${i} - четное число`)
+                    } else {
+                        console.log(`${i} - нечетное число`)
+                    }
+                }
+            }
+
+            function isEven(number) {
+                return number % 2 == 0 ? true : false
+            }
+        </script>
+    </body>
+</html>
