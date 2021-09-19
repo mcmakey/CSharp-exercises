@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>js-l4-ex1-1</title>
+    </head>
+    <body>
+        <script>
+            // Es5
+            function Product(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            Product.prototype.make25PercentDiscount = function () {
+                this.price = (this.price * (100 - 25)) / 100;
+            };
+
+            const p1 = new Product("brad", 100);
+            console.log(p1);
+
+            p1.make25PercentDiscount();
+            console.log(p1);
+
+            // Es6
+            class ProductClass {
+                constructor(options) {
+                    this.name = options.name;
+                    this.price = options.price;
+                }
+
+                make25PercentDiscount() {
+                    this.price = (this.price * (100 - 25)) / 100;
+                }
+            }
+
+            const p2 = new ProductClass({
+                name: "milk",
+                price: 200,
+            });
+            console.log(p2);
+
+            p2.make25PercentDiscount();
+            console.log(p2);
+        </script>
+    </body>
+</html>
