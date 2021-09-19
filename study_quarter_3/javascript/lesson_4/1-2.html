@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>js-l4-ex1-2</title>
+    </head>
+    <body>
+        <script>
+            //// Post /////
+            // Es5 Post
+            function Post(autor, text, date) {
+                this.autor = autor;
+                this.text = text;
+                this.date = date;
+            }
+
+            Post.prototype.edit = function (text) {
+                this.text = text;
+            };
+
+            const post1 = new Post("Bob", "Post by Bob", Date.now());
+
+            post1.edit("edited post of Bob");
+            console.log(post1);
+
+            // Es6
+            class PostClass {
+                constructor(autor, text, date) {
+                    this.autor = autor;
+                    this.text = text;
+                    this.date = date;
+                }
+
+                edit(text) {
+                    this.text = text;
+                }
+            }
+
+            const post2 = new PostClass("Alice", "Post by Alice", Date.now());
+            post2.edit("edited post of Alice");
+            console.log(post2);
+
+            //// AttachedPost /////
+            // Es5
+
+            function AttachedPost(autor, text, date) {
+                Post.call(this, autor, text, date);
+                this.highlithed = false;
+            }
+
+            AttachedPost.prototype = Object.create(Post.prototype);
+            AttachedPost.prototype.makeTextHilighted = function () {
+                this.highlithed = true;
+            };
+
+            const attachedPost = new AttachedPost("Jon", "Attached post by Jon", Date.now());
+            attachedPost.edit("Edited Attached post by Jon");
+            attachedPost.makeTextHilighted();
+            console.log(attachedPost);
+
+            // Es6
+            class AttachedPostClass extends PostClass {
+                constructor(autor, text, date) {
+                    super(autor, text, date);
+                    this.highlithed = false;
+                }
+
+                makeTextHilighted() {
+                    this.highlithed = true;
+                }
+            }
+
+            const attachedPost2 = new AttachedPostClass("Charlie", "Attached post by Charlie", Date.now());
+            attachedPost2.edit("Edited attached post by Charlie");
+            attachedPost2.makeTextHilighted();
+            console.log(attachedPost2);
+        </script>
+    </body>
+</html>
