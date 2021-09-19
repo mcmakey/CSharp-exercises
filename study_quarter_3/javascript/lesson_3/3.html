@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>js-l3-ex3</title>
+    </head>
+    <body>
+        <script>
+            const products = [
+                { id: 3, price: 200 },
+                { id: 4, price: 900 },
+                { id: 1, price: 1000 },
+            ];
+
+            applyDiscount(products, 15);
+
+            console.log(products);
+
+            function applyDiscount(products, discountPercent) {
+                products.forEach((product) => {
+                    product.price = product.price * (1 - discountPercent / 100);
+                });
+            }
+        </script>
+    </body>
+</html>
