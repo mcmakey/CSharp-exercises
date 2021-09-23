@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p class="first second third">
-        Lorem ipsum dolor sit.
-    </p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p class="first second third">Lorem ipsum dolor sit.</p>
 
-    <!-- 
+        <!-- 
     Задание.
     1. Назначьте обработку клика по параграфу, у функции обработчика объявите
     параметр event.
@@ -18,5 +16,13 @@
     3. Переберите с помощью forEach event.target.classList и выведите каждый класс
     в консоль.
     -->
-</body>
+
+        <script>
+            document.querySelector("P").addEventListener("click", (event) => {
+                const targetEl = event.target;
+                console.log(targetEl.classList);
+                targetEl.classList.forEach((className) => console.log(className));
+            });
+        </script>
+    </body>
 </html>

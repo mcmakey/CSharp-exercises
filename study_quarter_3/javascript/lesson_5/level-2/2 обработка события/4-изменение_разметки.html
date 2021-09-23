@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <div class="product">
-        <span class="productName">Товар 1</span>
-        Описание товара
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="product">
+            <span class="productName">Товар 1</span>
+            Описание товара
+        </div>
 
-    <!-- 
+        <!-- 
     Задание.
     1. Сохраните в переменную ссылку на .product
     2. Назначьте обработку клика по .product, у функции обработчика объявите
@@ -23,5 +22,18 @@
     для этого вышеописанную разметку пишите в виде строки в innerHTML.
     -->
 
-</body>
+        <script>
+            const productEl = document.querySelector(".product");
+            productEl.addEventListener("click", productClickHandler);
+
+            function productClickHandler(event) {
+                const target = event.target;
+                const productContent = `
+                <div>Другой товар</div>
+                <div>Другое описание</div>`;
+
+                target.innerHTML = productContent;
+            }
+        </script>
+    </body>
 </html>
