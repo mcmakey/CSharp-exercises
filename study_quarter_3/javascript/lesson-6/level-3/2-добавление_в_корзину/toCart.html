@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="product">
-        <div>Товар 1</div>
-        <img src="images/1.jpg" alt="">
-        <button>В корзину</button>
-    </div>
-    <div class="product">
-        <div>Товар 1</div>
-        <img src="images/2.jpg" alt="">
-        <button>В корзину</button>
-    </div>
-    <div class="product">
-        <div>Товар 1</div>
-        <img src="images/3.jpg" alt="">
-        <button>В корзину</button>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="product">
+            <div>Товар 1</div>
+            <img src="images/1.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
+        <div class="product">
+            <div>Товар 1</div>
+            <img src="images/2.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
+        <div class="product">
+            <div>Товар 1</div>
+            <img src="images/3.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
 
-    <!-- Задание. Нужно чтобы при клике по кнопке, блок .product, в котором она
+        <!-- Задание. Нужно чтобы при клике по кнопке, блок .product, в котором она
     находится становился цвета (имеется в виду background) lightgreen, а текст на 
 	кнопке стал "Добавлено", для этого:
     1. Найдите все кнопки, например с помощью querySelectorAll
@@ -40,12 +40,18 @@
     событие (свойство target) и меняете у нее текст на "Добавлено".
     -->
 
-    <script>
-        
-		
-		function buttonClickHandler(event) {
-		
-		}
-    </script>
-</body>
+        <script>
+            const buttonElements = document.querySelectorAll("button");
+
+            buttonElements.forEach(element => {
+                element.addEventListener("click", buttonClickHandler);
+            });
+
+            function buttonClickHandler(event) {
+                const targetEl = event.target;
+                targetEl.innerText = "Добавлено";
+                targetEl.parentElement.style.backgroundColor = "lightgreen";
+            }
+        </script>
+    </body>
 </html>

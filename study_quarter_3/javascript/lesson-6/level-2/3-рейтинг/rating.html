@@ -54,18 +54,20 @@
             //     firstStar.classList.remove(goldenClass);
             // });
 
-            document.addEventListener("mouseover", highlightStarWithPrevious);
-            document.addEventListener("mouseout", highlightStarWithPrevious);
+            const starsElements = document.querySelectorAll(".fa-star");
+
+            starsElements.forEach(element => {
+                element.addEventListener("mouseover", highlightStarWithPrevious);
+                element.addEventListener("mouseout", highlightStarWithPrevious);
+            });
 
             function highlightStarWithPrevious(event) {
                 const targetEl = event.target;
-                if (targetEl.classList.contains("fa-star")) {
-                    targetEl.classList.toggle(goldenClass);
-                    let previousEl = targetEl.previousElementSibling;
-                    while (previousEl) {
-                        previousEl.classList.toggle(goldenClass);
-                        previousEl = previousEl.previousElementSibling;
-                    }
+                targetEl.classList.toggle(goldenClass);
+                let previousEl = targetEl.previousElementSibling;
+                while (previousEl) {
+                    previousEl.classList.toggle(goldenClass);
+                    previousEl = previousEl.previousElementSibling;
                 }
             }
         </script>
