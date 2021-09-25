@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="product">
-        <div class="productName">Товар 1</div>
-        <img src="images/1.jpg" alt="">
-        <button>В корзину</button>
-    </div>
-    <div class="product">
-        <div class="productName">Товар 1</div>
-        <img src="images/1.jpg" alt="">
-        <button>В корзину</button>
-    </div>
-    <div class="product">
-        <div class="productName">Товар 1</div>
-        <img src="images/1.jpg" alt="">
-        <button>В корзину</button>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="product">
+            <div class="productName">Товар 1</div>
+            <img src="images/1.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
+        <div class="product">
+            <div class="productName">Товар 1</div>
+            <img src="images/1.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
+        <div class="product">
+            <div class="productName">Товар 1</div>
+            <img src="images/1.jpg" alt="" />
+            <button>В корзину</button>
+        </div>
 
-    <!-- Задание.
+        <!-- Задание.
     1. Сделайте всем элементам .product какой-нибудь фон, для этого:
         1.1 Найдите все элементы с классом .product, например с помощью
         querySelectorAll
@@ -43,8 +43,14 @@
         style
     -->
 
-    <script>
+        <script>
+            //1
+            const productElements = document.querySelectorAll(".product");
+            productElements.forEach(product => (product.style.backgroundColor = "red"));
 
-    </script>
-</body>
+            //2
+            const productNameElements = document.querySelectorAll(".productName");
+            productNameElements.forEach(name => (name.style.fontSize = "24px"));
+        </script>
+    </body>
 </html>
