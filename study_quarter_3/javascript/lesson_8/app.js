@@ -4,27 +4,68 @@ let fitlerPopup = document.querySelector('.filterPopup');
 let fitlerLabel = document.querySelector('.filterLabel');
 let filterIcon = document.querySelector('.filterIcon');
 
-fitlerLabel.addEventListener('click', function() {
+fitlerLabel.addEventListener('click', function () {
     fitlerPopup.classList.toggle('hidden');
     fitlerLabel.classList.toggle('filterLabelPink');
     filterIcon.classList.toggle('filterIconPink');
 
     if (filterIcon.getAttribute('src') === 'images/filter.svg') {
-        filterIcon.setAttribute('src', 'images/filterHover.svg')
+        filterIcon.setAttribute('src', 'images/filterHover.svg');
     } else {
-        filterIcon.setAttribute('src', 'images/filter.svg')
+        filterIcon.setAttribute('src', 'images/filter.svg');
     }
 });
 
 let filterHeaders = document.querySelectorAll('.filterCategoryHeader');
-filterHeaders.forEach(function(header) {
-    header.addEventListener('click', function(event) {
+filterHeaders.forEach(function (header) {
+    header.addEventListener('click', function (event) {
         event.target.nextElementSibling.classList.toggle('hidden');
-    })
+    });
 });
 
 let filterSizes = document.querySelector('.filterSizes');
 let filterSizeWrap = document.querySelector('.filterSizeWrap');
-filterSizeWrap.addEventListener('click', function() {
+filterSizeWrap.addEventListener('click', function () {
     filterSizes.classList.toggle('hidden');
 });
+
+///////
+
+// cart
+const storeCart = cart();
+
+// elements
+const buttonsAddToCart = document.querySelectorAll('.js-add-to-cart');
+const cartIcon = document.querySelector('.js-cart-icon');
+
+// listeners
+buttonsAddToCart.forEach(button => button.addEventListener('click', addToCartClickHandler));
+cartIcon.addEventListener('hover', storeCartHoverHandler);
+
+// handlers
+function addToCartClickHandler(event) {
+    console.log(event.target);
+    storeCart.add();
+}
+
+function storeCartHoverHandler() {
+    storeCart.show();
+}
+
+// cartmodul
+function cart() {
+    const entries = [];
+
+    const add = () => {
+        console.log('add');
+    };
+
+    const show = () => {
+        console.log('show');
+    };
+
+    return {
+        add: add,
+        show: show,
+    };
+}
