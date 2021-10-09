@@ -37,6 +37,7 @@ const storeCart = cart();
 // elements
 const buttonsAddToCart = document.querySelectorAll('.js-add-to-cart');
 const cartIcon = document.querySelector('.js-cart-icon');
+const cartIconCounter = document.querySelector('.js-cart-icon-counter');
 const cartContainer = document.querySelector('.rightHeader');
 
 // listeners
@@ -48,6 +49,8 @@ cartIcon.addEventListener('mouseout', hideCart);
 function addToCartClickHandler(event) {
     const product = getProduct(event);
     storeCart.add(product);
+
+    showTotalCountProducts();
 }
 
 function showCart(event) {
@@ -88,24 +91,6 @@ function hideCart(event) {
     document.querySelector('.cart-plate').remove();
 }
 
-//
-function getProduct(event) {
-    const target = event.target;
-    const productDataEl = target.closest('.featuredItem').querySelector('.featuredData');
-
-    const productName = productDataEl.querySelector('.featuredName').innerText;
-    const productDescription = productDataEl.querySelector('.featuredText').innerText;
-    const productPrice = Number(productDataEl.querySelector('.featuredPrice').innerText.slice(1));
-
-    const product = {
-        name: productName,
-        description: productDescription,
-        price: productPrice,
-    };
-
-    return product;
-}
-
 // cartmodul
 function cart() {
     const entries = [];
@@ -125,23 +110,53 @@ function cart() {
         return entries;
     };
 
-    // может вынести
-    function Entry(product) {
-        this.name = product.name;
-        this.count = 1;
-        this.price = product.price;
+    const getTotalCount = () => {
+        const count = entries.reduce((sum, currValue) => {
+            return sum + currValue.count;
+        }, 0);
 
-        Object.defineProperties(this, {
-            totalCost: {
-                get: function () {
-                    return this.price * this.count;
-                },
-            },
-        });
-    }
+        return count;
+    };
 
     return {
         add: add,
         getEntries: getEntries,
+        getTotalCount: getTotalCount,
     };
+}
+
+//
+function getProduct(event) {
+    const target = event.target;
+    const productDataEl = target.closest('.featuredItem').querySelector('.featuredData');
+
+    const productName = productDataEl.querySelector('.featuredName').innerText;
+    const productDescription = productDataEl.querySelector('.featuredText').innerText;
+    const productPrice = Number(productDataEl.querySelector('.featuredPrice').innerText.slice(1));
+
+    const product = {
+        name: productName,
+        description: productDescription,
+        price: productPrice,
+    };
+
+    return product;
+}
+
+function showTotalCountProducts() {
+    cartIconCounter.innerText = storeCart.getTotalCount();
+}
+
+function Entry(product) {
+    this.name = product.name;
+    this.count = 1;
+    this.price = product.price;
+
+    Object.defineProperties(this, {
+        totalCost: {
+            get: function () {
+                return this.price * this.count;
+            },
+        },
+    });
 }
