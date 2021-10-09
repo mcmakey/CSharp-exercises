@@ -37,10 +37,12 @@ const storeCart = cart();
 // elements
 const buttonsAddToCart = document.querySelectorAll('.js-add-to-cart');
 const cartIcon = document.querySelector('.js-cart-icon');
+const cartContainer = document.querySelector('.rightHeader');
 
 // listeners
 buttonsAddToCart.forEach(button => button.addEventListener('click', addToCartClickHandler));
-cartIcon.addEventListener('hover', storeCartHoverHandler);
+cartIcon.addEventListener('mouseover', showCart);
+cartIcon.addEventListener('mouseout', hideCart);
 
 // handlers
 function addToCartClickHandler(event) {
@@ -48,8 +50,42 @@ function addToCartClickHandler(event) {
     storeCart.add(product);
 }
 
-function storeCartHoverHandler() {
-    storeCart.show();
+function showCart(event) {
+    const cartEntries = storeCart.getEntries();
+
+    const cartPlate = document.createElement('table');
+    cartPlate.className = 'cart-plate';
+
+    const cartPlateHeader = document.createElement('tr');
+    appendCell(cartPlateHeader, 'Название товара', 'th');
+    appendCell(cartPlateHeader, 'Количество', 'th');
+    appendCell(cartPlateHeader, 'Цена за шт.', 'th');
+    appendCell(cartPlateHeader, 'Итого', 'th');
+
+    cartPlate.appendChild(cartPlateHeader);
+
+    cartEntries.forEach(entry => {
+        const row = document.createElement('tr');
+
+        appendCell(row, entry.name);
+        appendCell(row, entry.count);
+        appendCell(row, `$${entry.price}`);
+        appendCell(row, `$${entry.totalCost}`);
+
+        cartPlate.appendChild(row);
+    });
+
+    cartContainer.appendChild(cartPlate);
+
+    function appendCell(row, title, cellTag = 'td') {
+        const cell = document.createElement(cellTag);
+        cell.innerText = title;
+        row.appendChild(cell);
+    }
+}
+
+function hideCart(event) {
+    document.querySelector('.cart-plate').remove();
 }
 
 //
@@ -75,16 +111,37 @@ function cart() {
     const entries = [];
 
     const add = product => {
-        console.log('add');
-        console.log(product);
+        const sameProduct = entries.find(x => x.name == product.name);
+
+        if (sameProduct) {
+            sameProduct.count += 1;
+        } else {
+            const newEntry = new Entry(product);
+            entries.push(newEntry);
+        }
     };
 
-    const show = () => {
-        console.log('show');
+    const getEntries = () => {
+        return entries;
     };
+
+    // может вынести
+    function Entry(product) {
+        this.name = product.name;
+        this.count = 1;
+        this.price = product.price;
+
+        Object.defineProperties(this, {
+            totalCost: {
+                get: function () {
+                    return this.price * this.count;
+                },
+            },
+        });
+    }
 
     return {
         add: add,
-        show: show,
+        getEntries: getEntries,
     };
 }

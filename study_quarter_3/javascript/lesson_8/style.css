@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 body {
     margin: 0;
     font-family: Lato, sans-serif;
@@ -278,7 +278,7 @@ body {
 }
 
 .filterCategoryHeader:before {
-    content: "";
+    content: '';
     width: 5px;
     min-height: inherit;
     background: #ef5b70;
@@ -708,4 +708,29 @@ body {
     .footerRight {
         margin-top: 40px;
     }
+}
+
+/**/
+.rightHeader {
+    position: relative;
+}
+
+.cart-plate {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    transform: translateY(20px);
+    background-color: #ffffff;
+}
+
+.cart-plate th,
+.cart-plate td {
+    padding: 4px 7px;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.cart-plate th:first-child,
+.cart-plate td:first-child {
+    text-align: left;
 }
