@@ -23,14 +23,16 @@ namespace CardService.Controllers
 
         // GET: api/Cards
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Card>>> GetCards()
+        public async Task<ActionResult<IEnumerable<CardDTO>>> GetCards()
         {
-            return await _context.Cards.ToListAsync();
+            return await _context.Cards
+                .Select(x => CardToDTO(x))
+                .ToListAsync();
         }
 
         // GET: api/Cards/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Card>> GetCard(long id)
+        public async Task<ActionResult<CardDTO>> GetCard(long id)
         {
             var card = await _context.Cards.FindAsync(id);
 
@@ -39,20 +41,29 @@ namespace CardService.Controllers
                 return NotFound();
             }
 
-            return card;
+            return CardToDTO(card);
         }
 
         // PUT: api/Cards/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCard(long id, Card card)
+        public async Task<IActionResult> PutCard(long id, CardDTO cardDTO)
         {
-            if (id != card.Id)
+            if (id != cardDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(card).State = EntityState.Modified;
+            // _context.Entry(cardDTO).State = EntityState.Modified;
+
+            var card = await _context.Cards.FindAsync(id);
+
+            card.Number = cardDTO.Number;
+            card.PaymentSystem = cardDTO.PaymentSystem;
+            card.Bank = cardDTO.Bank;
+            card.ValidThru = cardDTO.ValidThru;
+            card.CardOwnerFirstName = cardDTO.CardOwnerFirstName;
+            card.CardOwnerLastName = cardDTO.CardOwnerLastName;
 
             try
             {
@@ -76,12 +87,25 @@ namespace CardService.Controllers
         // POST: api/Cards
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Card>> PostCard(Card card)
+        public async Task<ActionResult<CardDTO>> PostCard(CardDTO cardDTO)
         {
+            var card = new Card
+            {
+                Number = cardDTO.Number,
+                PaymentSystem = cardDTO.PaymentSystem,
+                Bank = cardDTO.Bank,
+                ValidThru = cardDTO.ValidThru,
+                CardOwnerFirstName = cardDTO.CardOwnerFirstName,
+                CardOwnerLastName = cardDTO.CardOwnerLastName,
+            };
+
             _context.Cards.Add(card);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
+            return CreatedAtAction(
+                    nameof(GetCard),
+                    new { id = card.Id },
+                    CardToDTO(card));
         }
 
         // DELETE: api/Cards/5
@@ -104,5 +128,17 @@ namespace CardService.Controllers
         {
             return _context.Cards.Any(e => e.Id == id);
         }
+
+        private static CardDTO CardToDTO(Card card) =>
+            new CardDTO
+            {
+                Id = card.Id,
+                Number = card.Number,
+                PaymentSystem = card.PaymentSystem,
+                Bank = card.Bank,
+                ValidThru = card.ValidThru,
+                CardOwnerFirstName = card.CardOwnerFirstName,
+                CardOwnerLastName = card.CardOwnerLastName,
+            };
     }
 }

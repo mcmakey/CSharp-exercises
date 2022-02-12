@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<CardServiceContext>(options =>
-    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=cardappdb4 ;Trusted_Connection=True;")
+    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=cardappdb5 ;Trusted_Connection=True;")
 );
 
 var app = builder.Build();
