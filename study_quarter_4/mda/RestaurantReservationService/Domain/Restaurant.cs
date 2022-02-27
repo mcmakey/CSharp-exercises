@@ -34,7 +34,7 @@ namespace RestaurantReservationService
             {
                 var table = _tables.FirstOrDefault(t => t.SeatsCount > countOfPersons && t.State == TableState.Free);
 
-                await Task.Delay(1000 * 5);
+                await Task.Delay(1000 * 5); // Задержка
 
                 table?.setState(TableState.Booked);
 
@@ -42,6 +42,36 @@ namespace RestaurantReservationService
                     ? "Уведомление: К сожалению все столики заняты"
                     : $"Уведомление: Готово! Ваш столик номер {table.Id}");
             });
+        }
+
+        public void CancelBookingTable(int tableId)
+        {
+            var table = GetTableById(tableId);
+
+            Thread.Sleep(1000 * 5); // Задержка
+
+            table?.setState(TableState.Free);
+
+            Console.WriteLine($"Бронь со столика {table?.Id} снята");
+        }
+
+        public void CancelBookingTableAsync(int tableId)
+        {
+            Task.Run( async () =>
+            {
+                var table = GetTableById(tableId);
+
+                await Task.Delay(1000 * 5); // Задержка
+
+                table?.setState(TableState.Free);
+
+                Console.WriteLine($"Бронь со столика {table?.Id} снята");
+            });
+        }
+
+        private Table GetTableById(int id)
+        {
+            return _tables.FirstOrDefault(t => t.Id == id);
         }
     }
 }
