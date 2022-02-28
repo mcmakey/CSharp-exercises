@@ -1,4 +1,4 @@
-﻿using RestaurantReservationService;
+﻿using RestaurantReservationService.Domain;
 using System.Diagnostics;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;

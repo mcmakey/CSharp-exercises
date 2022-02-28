@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservationService
+﻿namespace RestaurantReservationService.Domain
 {
     public class Table
     {

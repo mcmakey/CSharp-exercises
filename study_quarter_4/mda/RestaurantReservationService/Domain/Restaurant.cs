@@ -1,6 +1,6 @@
 ﻿using RestaurantReservationService.Application;
 
-namespace RestaurantReservationService
+namespace RestaurantReservationService.Domain
 {
     internal class Restaurant
     {

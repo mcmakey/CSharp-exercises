@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservationService
+﻿namespace RestaurantReservationService.Domain
 {
     public enum TableState
     {
