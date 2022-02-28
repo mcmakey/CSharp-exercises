@@ -1,9 +1,11 @@
-﻿
+﻿using RestaurantReservationService.Application;
+
 namespace RestaurantReservationService
 {
     internal class Restaurant
     {
         private readonly List<Table> _tables = new();
+        private readonly Notification _notification = new Notification();
 
         public Restaurant()
         {
@@ -38,9 +40,11 @@ namespace RestaurantReservationService
 
                 table?.setState(TableState.Booked);
 
-                Console.WriteLine(table is null
+                var messageBookingResult = table is null
                     ? "Уведомление: К сожалению все столики заняты"
-                    : $"Уведомление: Готово! Ваш столик номер {table.Id}");
+                    : $"Уведомление: Готово! Ваш столик номер {table.Id}";
+
+                _notification.Send(messageBookingResult);
             });
         }
 
@@ -65,13 +69,15 @@ namespace RestaurantReservationService
 
                 table?.setState(TableState.Free);
 
-                Console.WriteLine($"Бронь со столика {table?.Id} снята");
+                var messageCancelBookingResult = $"Бронь со столика {table?.Id} снята";
+
+                _notification.Send(messageCancelBookingResult);
             });
         }
 
         private Table GetTableById(int id)
         {
-            return _tables.FirstOrDefault(t => t.Id == id);
+            return _tables.FirstOrDefault(t => t.Id == id); // TODO: handle null
         }
     }
 }
