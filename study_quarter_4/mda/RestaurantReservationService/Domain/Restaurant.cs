@@ -75,6 +75,11 @@ namespace RestaurantReservationService.Domain
             });
         }
 
+        public void CancelBooking()
+        {
+            _tables.ForEach(t => t.setState(TableState.Free));
+        }
+
         private Table GetTableById(int id)
         {
             return _tables.FirstOrDefault(t => t.Id == id); // TODO: handle null

@@ -5,6 +5,15 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 var rest = new Restaurant();
 
+TimerCallback tm = new TimerCallback(CancelBooking);
+Timer timer = new Timer(tm, rest, 10000, 10000);
+
+static void CancelBooking(object obj)
+{
+    Restaurant r = (Restaurant)obj;
+    r.CancelBooking();
+}
+
 while (true)
 {
     Console.WriteLine("Привет! Желаете забронировать столик?\n1 - мы уведомим вас по смс (асинхронно)" +
@@ -34,6 +43,7 @@ while (true)
     stopWatch.Stop();
 
     var ts = stopWatch.Elapsed;
+
     Console.WriteLine($"{ts.Seconds}:{ts.Milliseconds}");
 }
 
