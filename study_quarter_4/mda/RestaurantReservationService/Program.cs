@@ -6,7 +6,7 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 var rest = new Restaurant();
 
 TimerCallback tm = new TimerCallback(CancelBooking);
-Timer timer = new Timer(tm, rest, 10000, 10000);
+Timer timer = new Timer(tm, rest, 0, 20000);
 
 static void CancelBooking(object obj)
 {

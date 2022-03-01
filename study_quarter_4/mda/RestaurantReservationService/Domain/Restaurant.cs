@@ -23,6 +23,8 @@ namespace RestaurantReservationService.Domain
 
             Thread.Sleep(1000 * 5); // Задержка
 
+            table?.setState(TableState.Booked);
+
             Console.WriteLine(table is null
                 ? "К сожалению все столики заняты"
                 : $"Готово! Ваш столик номер {table.Id}");
@@ -78,6 +80,7 @@ namespace RestaurantReservationService.Domain
         public void CancelBooking()
         {
             _tables.ForEach(t => t.setState(TableState.Free));
+            Console.WriteLine("сброс брони");
         }
 
         private Table GetTableById(int id)
