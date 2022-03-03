@@ -23,7 +23,7 @@ namespace RestaurantReservationService.Domain
 
             Thread.Sleep(1000 * 5); // Задержка
 
-            table?.setState(TableState.Booked);
+            table?.SetState(TableState.Booked);
 
             Console.WriteLine(table is null
                 ? "К сожалению все столики заняты"
@@ -40,7 +40,7 @@ namespace RestaurantReservationService.Domain
 
                 await Task.Delay(1000 * 5); // Задержка
 
-                table?.setState(TableState.Booked);
+                table?.SetState(TableState.Booked);
 
                 var messageBookingResult = table is null
                     ? "Уведомление: К сожалению все столики заняты"
@@ -56,7 +56,7 @@ namespace RestaurantReservationService.Domain
 
             Thread.Sleep(1000 * 5); // Задержка
 
-            table?.setState(TableState.Free);
+            table?.SetState(TableState.Free);
 
             Console.WriteLine($"Бронь со столика {table?.Id} снята");
         }
@@ -69,7 +69,7 @@ namespace RestaurantReservationService.Domain
 
                 await Task.Delay(1000 * 5); // Задержка
 
-                table?.setState(TableState.Free);
+                table?.SetState(TableState.Free);
 
                 var messageCancelBookingResult = $"Бронь со столика {table?.Id} снята";
 
@@ -79,7 +79,7 @@ namespace RestaurantReservationService.Domain
 
         public void CancelBooking()
         {
-            _tables.ForEach(t => t.setState(TableState.Free));
+            _tables.ForEach(t => t.SetState(TableState.Free));
             Console.WriteLine("сброс брони");
         }
 
