@@ -24,7 +24,7 @@ namespace LibraryService.Services.Impl
         {
             return _dbContext.Books.Where(book =>
                 book.Authors.Where(author =>
-                    author.Name.Contains(authorName.ToLower())).Count() > 0).ToList();
+                    author.Name.ToLower().Contains(authorName.ToLower())).Count() > 0).ToList();
         }
 
         public IList<Book> GetByCategory(string category)
