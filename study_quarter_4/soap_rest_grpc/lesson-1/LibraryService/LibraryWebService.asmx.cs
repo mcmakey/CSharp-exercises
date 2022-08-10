@@ -48,5 +48,11 @@ namespace LibraryService
         {
             return _libraryRepositoryService.Delete(item);
         }
+
+        [WebMethod]
+        public int UpdateBook(Book item)
+        {
+            return _libraryRepositoryService.Update(item);
+        }
     }
 }

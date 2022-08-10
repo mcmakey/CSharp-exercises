@@ -42,6 +42,21 @@ namespace LibraryService.Services.Impl
             return _dbContext.Books.Count();
         }
 
+        public int Update(Book item)
+        {
+            var book = _dbContext.Books.First(b => b.Id == item.Id);
+
+            book.Title = item.Title;
+            book.Category = item.Category;
+            book.Authors = item.Authors;
+            book.AgeLimit = item.AgeLimit;
+            book.Lang = item.Lang;
+            book.Pages = item.Pages;
+            book.Pages = item.PublicationDate;
+
+            return _dbContext.Books.Count();
+        }
+
         //
 
         public int? Add(Book item)
@@ -55,11 +70,6 @@ namespace LibraryService.Services.Impl
         }
 
         public Book GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Update(Book item)
         {
             throw new NotImplementedException();
         }
