@@ -42,5 +42,11 @@ namespace LibraryService
         {
             return _libraryRepositoryService.GetByCategory(category).ToList();
         }
+
+        [WebMethod]
+        public int DeleteBook(Book item)
+        {
+            return _libraryRepositoryService.Delete(item);
+        }
     }
 }

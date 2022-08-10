@@ -35,12 +35,16 @@ namespace LibraryService.Services.Impl
 
         //
 
-        public int? Add(Book item)
+        public int Delete(Book item)
         {
-            throw new NotImplementedException();
+            _dbContext.Books.Remove(item);
+
+            return _dbContext.Books.Count();
         }
 
-        public int Delete(Book item)
+        //
+
+        public int? Add(Book item)
         {
             throw new NotImplementedException();
         }
