@@ -11,6 +11,6 @@ namespace PumpService
     public interface IPumpServiceCallback
     {
         [OperationContract(IsOneWay = true)]
-        void UpdateStatistics();
+        void UpdateStatistics(StatisticsService statisticsService);
     }
 }

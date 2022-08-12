@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PumpService
 {
-    [ServiceContract(SessionMode = SessionMode.Required)]
+    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IPumpServiceCallback))]
     public interface IPumpService
     {
         [OperationContract(IsOneWay = true)]
