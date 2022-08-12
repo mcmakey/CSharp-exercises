@@ -20,7 +20,7 @@ namespace PumpService
         {
             _statisticsService = new StatisticsService();
             _settingService = new SettingService();
-            _scriptService = new ScriptService(_statisticsService, _settingService, Callback);
+            _scriptService = new ScriptService(_settingService, _statisticsService, Callback);
         }
 
         public void CompileScript()

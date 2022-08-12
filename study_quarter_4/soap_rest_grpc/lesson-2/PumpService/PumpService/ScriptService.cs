@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,40 +13,37 @@ namespace PumpService
 {
     public class ScriptService : IScriptService
     {
+
         CompilerResults compilerResults;
 
         private readonly IStatisticsService _statisticsService;
-        private readonly ISettingService _settingService;
+        private readonly ISettingService _serviceSettings;
         private readonly IPumpServiceCallback _pumpServiceCallback;
 
         public ScriptService(
-                IStatisticsService statisticsService,
-                ISettingService settingService,
-                IPumpServiceCallback pumpServiceCallback
-            )
+            ISettingService serviceSettings,
+            IStatisticsService statisticsService,
+            IPumpServiceCallback pumpServiceCallback)
         {
+            _serviceSettings = serviceSettings;
             _statisticsService = statisticsService;
-            _settingService = settingService;
             _pumpServiceCallback = pumpServiceCallback;
-            
         }
+
 
         public bool Compile()
         {
             try
             {
                 CompilerParameters compilerParameters = new CompilerParameters();
-
                 compilerParameters.GenerateInMemory = true;
-
                 compilerParameters.ReferencedAssemblies.Add("System.dll");
                 compilerParameters.ReferencedAssemblies.Add("System.Core.dll");
                 compilerParameters.ReferencedAssemblies.Add("System.Data.dll");
-                compilerParameters.ReferencedAssemblies.Add("System.CSharp.dll");
-
+                compilerParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
+                compilerParameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
                 compilerParameters.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);
-
-                FileStream fileStream = new FileStream(_settingService.FileName, FileMode.Open);
+                FileStream fileStream = new FileStream(_serviceSettings.FileName, FileMode.Open);
                 byte[] buffer;
                 try
                 {
@@ -62,12 +58,9 @@ namespace PumpService
                 {
                     fileStream.Close();
                 }
-
                 CSharpCodeProvider cSharpCodeProvider = new CSharpCodeProvider();
-
-                compilerResults =
-                    cSharpCodeProvider.CompileAssemblyFromSource(compilerParameters, Encoding.UTF8.GetString(buffer));
-
+                compilerResults = cSharpCodeProvider.
+                    CompileAssemblyFromSource(compilerParameters, System.Text.Encoding.UTF8.GetString(buffer));
                 if (compilerResults.Errors != null && compilerResults.Errors.Count != 0)
                 {
                     string compileErrors = string.Empty;
@@ -84,7 +77,7 @@ namespace PumpService
                 }
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //TODO: log
                 return false;
@@ -93,54 +86,39 @@ namespace PumpService
 
         public void Run()
         {
-            if (compilerResults == null || compilerResults.Errors != null )
-            {
+            if (compilerResults == null || (compilerResults.Errors != null && compilerResults.Errors.Count != 0))
                 if (!Compile())
-                {
                     return;
-                }
-            }
+
 
             Type type = compilerResults.CompiledAssembly.GetType("Sample.SampleScript");
-
             if (type == null)
-            {
                 return;
-            }
 
             MethodInfo entryPointMethod = type.GetMethod("EntryPoint");
-
             if (entryPointMethod == null)
-            {
                 return;
-            }
 
             Task.Run(() =>
             {
-
                 try
                 {
                     for (int i = 0; i < 10; i++)
                     {
                         if ((bool)entryPointMethod.Invoke(Activator.CreateInstance(type), new object[] { }))
-                        {
                             _statisticsService.SuccessTacts++;
-                        }
                         else
-                        {
                             _statisticsService.ErrorTacts++;
-                        }
 
                         _statisticsService.AllTacts++;
-
                         _pumpServiceCallback.UpdateStatistics((StatisticsService)_statisticsService);
-
                         Thread.Sleep(1000);
                     }
+
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    //TODO: log
+                    //TODO: Log
                 }
 
 
