@@ -1,7 +1,9 @@
 using ClinicService.Data;
 using ClinicService.Services;
 using ClinicService.Services.Impl;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 
 namespace ClinicService
 {
@@ -17,6 +19,27 @@ namespace ClinicService
             {
                 options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
             });
+
+            //
+
+            builder.Services.AddHttpLogging(logging =>
+            {
+                logging.LoggingFields = HttpLoggingFields.All | HttpLoggingFields.RequestQuery;
+                logging.RequestBodyLogLimit = 4096;
+                logging.ResponseBodyLogLimit = 4096;
+                logging.RequestHeaders.Add("Authorization");
+                logging.RequestHeaders.Add("X-Real-IP");
+                logging.RequestHeaders.Add("X-Forwarded-For");
+            });
+
+            builder.Host.ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+
+            }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
+
+            //
 
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
             builder.Services.AddScoped<IPetRepository, PetRepository>();
@@ -36,8 +59,8 @@ namespace ClinicService
                 app.UseSwaggerUI();
             }
 
+            app.UseHttpLogging();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
