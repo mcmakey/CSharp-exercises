@@ -1,4 +1,6 @@
 using ClinicService.Data;
+using ClinicService.Services;
+using ClinicService.Services.Impl;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClinicService
@@ -15,6 +17,10 @@ namespace ClinicService
             {
                 options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
             });
+
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+            builder.Services.AddScoped<IPetRepository, PetRepository>();
+            builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
