@@ -2,8 +2,10 @@ using ClinicService.Data;
 using ClinicService.Services;
 using ClinicService.Services.Impl;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
+using System.Net;
 
 namespace ClinicService
 {
@@ -15,10 +17,22 @@ namespace ClinicService
 
             // Add services to the container.
 
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.Listen(IPAddress.Any, 5001, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
+            });
+
             builder.Services.AddDbContext<ClinicServiceDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
             });
+
+            //
+
+            builder.Services.AddGrpc(); // 1
 
             //
 
@@ -60,9 +74,24 @@ namespace ClinicService
             }
 
             app.UseHttpLogging();
+            app.UseWhen( // 3 // wait net.7
+                ctx => ctx.Request.ContentType != "application/grpc",
+                builder =>
+                {
+                    builder.UseHttpLogging();
+                }
+            );
+
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.UseEndpoints(endpoints =>  // 2
+            {
+                // Communication with gRPC endpoints must be made through a gRPC client.
+                // To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909
+                endpoints.MapGrpcService<ClientService>();
+            });
 
             app.Run();
         }
