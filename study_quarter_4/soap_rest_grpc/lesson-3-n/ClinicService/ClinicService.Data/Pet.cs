@@ -20,7 +20,7 @@ namespace ClinicService.Data
 
         [Column]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Column]
         public DateTime Birthday { get; set; }
