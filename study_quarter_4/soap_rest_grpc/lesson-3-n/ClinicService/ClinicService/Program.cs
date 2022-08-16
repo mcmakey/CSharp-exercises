@@ -73,7 +73,6 @@ namespace ClinicService
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpLogging();
             app.UseWhen( // 3 // wait net.7
                 ctx => ctx.Request.ContentType != "application/grpc",
                 builder =>
@@ -85,7 +84,7 @@ namespace ClinicService
             app.UseAuthorization();
 
             app.MapControllers();
-
+            app.UseRouting();
             app.UseEndpoints(endpoints =>  // 2
             {
                 // Communication with gRPC endpoints must be made through a gRPC client.
