@@ -92,6 +92,7 @@ namespace ClinicService
                 // To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909
                 endpoints.MapGrpcService<ClientService>();
                 endpoints.MapGrpcService<PetService>();
+                endpoints.MapGrpcService<ConsultationService>();
             });
 
             app.Run();
