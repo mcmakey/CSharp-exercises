@@ -16,32 +16,67 @@ namespace ClinicService.Services.Impl
 
         public int Add(Consultation item)
         {
-            throw new NotImplementedException();
+            _dbContext.Consultations.Add(item);
+            _dbContext.SaveChanges();
+
+            return item.ConsultationId;
         }
 
         public void Delete(Consultation item)
         {
-            throw new NotImplementedException();
+            if (item is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            Delete(item.ConsultationId);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var consultation = GetById(id);
+
+            if (consultation is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            _dbContext.Remove(consultation);
+            _dbContext.SaveChanges();
         }
 
         public IList<Consultation> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Consultations.ToList();
         }
 
         public Consultation? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Consultations.FirstOrDefault(consultation => consultation.ConsultationId == id);
         }
 
         public void Update(Consultation item)
         {
-            throw new NotImplementedException();
+            if (item is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var consultation = GetById(item.ConsultationId);
+
+            if (consultation is null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            consultation.ConsultationId = item.ConsultationId;
+            consultation.ClientId = item.ClientId;
+            consultation.PetId = item.PetId;
+            consultation.ConsultationDate = item.ConsultationDate;
+            consultation.Description = item.Description;
+
+            _dbContext.Update(consultation);
+            _dbContext.SaveChanges();
         }
     }
 }
