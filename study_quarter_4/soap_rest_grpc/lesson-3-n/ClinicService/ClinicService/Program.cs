@@ -1,12 +1,15 @@
 using ClinicService.Data;
 using ClinicService.Services;
 using ClinicService.Services.Impl;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using System.Net;
+using System.Text;
 
 namespace ClinicService
 {
@@ -61,6 +64,29 @@ namespace ClinicService
             builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 
             builder.Services.AddControllers();
+
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new
+               TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AuthenticateService.SecretKey)),
+                   ValidateIssuer = false,
+                   ValidateAudience = false,
+                   ClockSkew = TimeSpan.Zero
+               };
+           });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -82,6 +108,7 @@ namespace ClinicService
                 }
             );
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
