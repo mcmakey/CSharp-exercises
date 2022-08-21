@@ -26,6 +26,7 @@ namespace ClinicService
                 options.Listen(IPAddress.Any, 5001, listenOptions =>
                 {
                     listenOptions.Protocols = HttpProtocols.Http2;
+                    listenOptions.UseHttps(@"C:\testsert.pfx", "12345");
                 });
             });
 
@@ -56,6 +57,10 @@ namespace ClinicService
                 logging.AddConsole();
 
             }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
+
+            //
+
+            builder.Services.AddSingleton<IAuthenticateService, AuthenticateService>();
 
             //
 
@@ -100,6 +105,8 @@ namespace ClinicService
                 app.UseSwaggerUI();
             }
 
+            app.UseRouting();
+
             app.UseWhen( // 3 // wait net.7
                 ctx => ctx.Request.ContentType != "application/grpc",
                 builder =>
@@ -112,7 +119,7 @@ namespace ClinicService
             app.UseAuthorization();
 
             app.MapControllers();
-            app.UseRouting();
+            
             app.UseEndpoints(endpoints =>  // 2
             {
                 // Communication with gRPC endpoints must be made through a gRPC client.
@@ -120,6 +127,7 @@ namespace ClinicService
                 endpoints.MapGrpcService<ClientService>();
                 endpoints.MapGrpcService<PetService>();
                 endpoints.MapGrpcService<ConsultationService>();
+                endpoints.MapGrpcService<AuthService>();
             });
 
             app.Run();

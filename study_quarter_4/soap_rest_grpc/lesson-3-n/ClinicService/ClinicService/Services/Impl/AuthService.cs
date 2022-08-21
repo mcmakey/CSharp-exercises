@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicService.Services.Impl
 {
+    [Authorize]
     public class AuthService : Proto.AuthenticateServiceBase
     {
 
@@ -20,6 +21,7 @@ namespace ClinicService.Services.Impl
             _authenticateService = authenticateService;
         }
 
+        [AllowAnonymous]
         public override Task<Protos.AuthenticationResponse> Login(Protos.AuthenticationRequest request, ServerCallContext context)
         {
             Req.AuthenticationResponse authenticationResponse = _authenticateService.Login(new Req.AuthenticationRequest

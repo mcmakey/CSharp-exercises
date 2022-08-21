@@ -1,9 +1,12 @@
 ﻿using ClinicService.Data;
 using ClinicService.Models;
 using ClinicService.Models.Requests;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -12,14 +15,22 @@ namespace ClinicService.Services.Impl
     public class AuthenticateService : IAuthenticateService
     {
 
+        #region Services
+
         private readonly IServiceScopeFactory _serviceScopeFactory;
+
+        #endregion
+
 
         private readonly Dictionary<string, SessionInfo> _sessions =
             new Dictionary<string, SessionInfo>();
 
         public const string SecretKey = "kYp3s6v9y/B?E(H+";
 
-
+        public AuthenticateService(IServiceScopeFactory serviceScopeFactory)
+        {
+            _serviceScopeFactory = serviceScopeFactory;
+        }
 
         public SessionInfo GetSessionInfo(string sessionToken)
         {
@@ -30,31 +41,30 @@ namespace ClinicService.Services.Impl
                 _sessions.TryGetValue(sessionToken, out sessionInfo);
             }
 
-            if (sessionInfo is null)
+            if (sessionInfo == null)
             {
                 using IServiceScope scope = _serviceScopeFactory.CreateScope();
                 ClinicServiceDbContext context = scope.ServiceProvider.GetRequiredService<ClinicServiceDbContext>();
 
                 AccountSession session = context
-                    .AccountSessions
-                    .FirstOrDefault(item => item.SessionToken == sessionToken);
+                        .AccountSessions
+                        .FirstOrDefault(item => item.SessionToken == sessionToken);
 
-                if (session is null)
-                {
+                if (session == null)
                     return null;
-                }
 
                 Account account = context.Accounts.FirstOrDefault(item => item.AccountId == session.AccountId);
 
                 sessionInfo = GetSessionInfo(account, session);
 
-                if (sessionInfo is not null)
+                if (sessionInfo != null)
                 {
-                    lock(_sessions)
+                    lock (_sessions)
                     {
                         _sessions[sessionToken] = sessionInfo;
                     }
                 }
+
             }
 
             return sessionInfo;
@@ -85,6 +95,7 @@ namespace ClinicService.Services.Impl
                 };
             }
 
+
             AccountSession session = new AccountSession
             {
                 AccountId = account.AccountId,
@@ -94,8 +105,10 @@ namespace ClinicService.Services.Impl
                 IsClosed = false,
             };
 
-            context.Add(session);
+            context.AccountSessions.Add(session);
+
             context.SaveChanges();
+
 
             SessionInfo sessionInfo = GetSessionInfo(account, session);
 
@@ -103,6 +116,7 @@ namespace ClinicService.Services.Impl
             {
                 _sessions[sessionInfo.SessionToken] = sessionInfo;
             }
+
 
             return new AuthenticationResponse
             {
@@ -116,7 +130,7 @@ namespace ClinicService.Services.Impl
         {
             return new SessionInfo
             {
-                SessionId = accountSession.AccountId,
+                SessionId = accountSession.SessionId,
                 SessionToken = accountSession.SessionToken,
                 Account = new AccountDto
                 {
@@ -130,29 +144,24 @@ namespace ClinicService.Services.Impl
             };
         }
 
+
         private string CreateSessionToken(Account account)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(SecretKey);
-
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
-                    new Claim[] {
+                    new Claim[]{
                         new Claim(ClaimTypes.NameIdentifier, account.AccountId.ToString()),
                         new Claim(ClaimTypes.Name, account.EMail),
                     }),
-
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-
             return tokenHandler.WriteToken(token);
         }
-
-
 
         private Account FindAccountByLogin(ClinicServiceDbContext context, string login)
         {

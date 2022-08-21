@@ -1,10 +1,12 @@
 ﻿using ClientServiceProtos;
 using ClinicService.Data;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using static ClientServiceProtos.ClientService;
 
 namespace ClinicService.Services.Impl
 {
+    [Authorize]
     public class ClientService : ClientServiceBase
     {
         private readonly ClinicServiceDbContext _dbContext;
